@@ -1,6 +1,8 @@
 import React from 'react';
 
 import './App.css';
+const config = require('./config.json');
+const SERVER_URL = config.server_url;
 
 class Form extends React.Component {
   constructor(props) {
@@ -13,7 +15,7 @@ class Form extends React.Component {
   }
 
   handleChange(event) {
-    this.setState({ value: event.target.value });
+    this.setState({ value: event.target.value }); //TODO: handle submit asynchronously
   }
 
   handleKeyDown(event) {
@@ -27,7 +29,27 @@ class Form extends React.Component {
     }
   }
 
+  updateURL(url) {
+    console.log(`update url to : ${url}`)
+    //TODO
+  }
+
   submit(event) {
+    console.log(SERVER_URL)
+
+    fetch(SERVER_URL, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ data: this.state.value })
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.updateURL(responseJson.body.url);
+      })
+      .catch((err) => console.log(err));
     console.log(this.state.value);
   }
 
