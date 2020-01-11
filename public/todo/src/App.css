@@ -19,7 +19,7 @@
 div.container {
   overflow: hidden;
   width: 95vw;
-  height: 100vh;
+  height: 95vh;
 }
 
 textarea{
@@ -36,8 +36,8 @@ textarea{
   border-style: none;
   border-color: transparent;
   outline: none;
-  resize: vertical; 
-  overflow: hidden;
+  resize: none; 
+  overflow: visible;
   background-color: var(--bg);
   
 }
