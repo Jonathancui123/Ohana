@@ -8,45 +8,33 @@ class Form extends React.Component {
     this.state = {value: ""};
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleKeypress = this.handleKeypress.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.Submit = this.Submit.bind(this);
   }
 
   handleChange(event) {
     this.setState({value: event.target.value});
   }
 
-  handleKeypress(event) {
-    console.log(event.ctrlKey);
+  handleKeyDown(event) {
     if(event.ctrlKey || event.metaKey){
-      switch (String.fromCharCode(event.which).toLowerCase()) {
+      switch (event.key.toLowerCase()) {
         case 's':
             event.preventDefault();
-            alert('ctrl-s');
+            this.Submit();
             break;
-        case 'f':
-            event.preventDefault();
-            alert('ctrl-f');
-            break;
-        case 'g':
-            event.preventDefault();
-            alert('ctrl-g');
-            break;
-        }
+      }
     }
   }
 
-  handleSubmit(event) {
+  Submit(event) {
     console.log(this.state.value);
-    this.setState({value:this.state.value + "\n"})
-    
-    event.preventDefault();
   }
 
   render() {
 
     return (
-      <textarea onKeyPress={this.handleKeypress}>
+      <textarea onKeyDown={this.handleKeyDown} onChange={this.handleChange}>
         {this.state.value}
       </textarea>
     )
