@@ -1,0 +1,22 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "server for todo",
+  "main": "app.js",
+  "scripts": {
+    "test": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jinyic/todo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jinyic/todo/issues"
+  },
+  "homepage": "https://github.com/jinyic/todo#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
