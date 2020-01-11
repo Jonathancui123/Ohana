@@ -9,7 +9,7 @@ class Form extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.Submit = this.Submit.bind(this);
+    this.submit = this.submit.bind(this);
   }
 
   handleChange(event) {
@@ -21,22 +21,23 @@ class Form extends React.Component {
       switch (event.key.toLowerCase()) {
         case 's':
             event.preventDefault();
-            this.Submit();
+            this.submit(event);
             break;
       }
     }
   }
 
-  Submit(event) {
+  submit(event) {
+    this.setState({value: event.target.textContent});
     console.log(this.state.value);
   }
 
   render() {
 
     return (
-      <textarea onKeyDown={this.handleKeyDown} onChange={this.handleChange}>
+      <div contentEditable="true" onKeyDown={this.handleKeyDown} onChange={this.handleChange}>
         {this.state.value}
-      </textarea>
+      </div>
     )
   }
 
