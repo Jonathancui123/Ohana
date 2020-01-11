@@ -1,12 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Fira+Code&display=swap');
-
-:root {
-  /*--bg: #1d1f21;*/
-
-}
 body {
-  margin: 0;
-  background-color: var(--bg);
+  background-color: #1d1f21;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -17,28 +10,4 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-}
-
-input[type=text], textarea {
-  /*
-  margin: 4vw;
-  padding: 1em;
-  width: 100%;
-  max-width: 92vw;
-  
-  line-height: 1.5em;
-  font-family: 'Fira Code', monospace;
-  font-size: 14px;
-  font-weight: 300;
-  color: white;
-  */
-  border-style: none;
-  border-color: transparent;
-  outline: none;
-  resize: none; 
-  overflow: hidden;
-  /*
-  height: 100%;
-  background-color: #1d1f21;
-  */
 }
