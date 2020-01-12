@@ -1,5 +1,6 @@
 const express = require('express')
 const cors = require('cors')
+const hash = require('./hash.js')
 const app = express()
 
 const PORT = process.env.port || 3000 // Temp port
@@ -9,7 +10,7 @@ app.listen(PORT, () => console.log(`Todo app listening on port ${PORT}`))
 
 const MongoClient = require('mongodb').MongoClient;
 
-const uri = "mongodb+srv://usr:pass@cluster0-ivfom.gcp.mongodb.net/todo";
+const uri = "";
 const client = new MongoClient(uri, { useNewUrlParser: true });
 let db;
 
@@ -18,40 +19,36 @@ client.connect((err) => {
     files = client.db("todo").collection('files')
 });
 
-/* Routes 
-app.use('/', (req, res) => {
-    if (req.method == 'GET') {
-        console.log(req.url) 
-        res.send(`${req.url}`)
-    }
+app.get('/', (req, res) => {
+    res.status(200)
 })
-*/
 
 app.get('/:id', (req, res) => {
-    console.log(req.params.id)
     files.findOne(
-        { id: parseInt(req.params.id) }
+        { _id: req.params.id }
     ).then((document, err) => {
-        if (err) { console.log("[-] " + err) }
-        console.log("[+] " + document);
+        if (err) { console.log("[-]1 " + err) }
         res.json({
-            data: document['data']
+            data: document.data
         })
     }).catch((err) => {
-        console.log("[-] " + err)
+        console.log("[-]2 " + err)
     })
 
 })
 
 app.post('/upload', (req, res) => {
     console.log(req.body)
+    let id = hash.hash58()
     let file = {
-        id: Math.floor((Math.random() * 1000)),
+        _id: id,
         data: req.body.data
     }
     files.insertOne(file, (err, result) => {
+        res.send({
+            id: id
+        })
         if (err) return console.log(err)
     })
-    res.redirect('/')
 })
 
