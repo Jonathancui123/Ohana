@@ -15,6 +15,7 @@ class Form extends React.Component {
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.submit = this.submit.bind(this);
     this.loadFile = this.loadFile.bind(this);
+    this.updateURL = this.updateURL.bind(this);
 
     this.loadFile();
   }
@@ -59,14 +60,11 @@ class Form extends React.Component {
     }
   }
 
-  updateURL(url) {
-    console.log(`update url to : ${url}`)
-    //TODO
+  updateURL(id) {
+    window.history.pushState(null, null, '/' + id);
   }
 
   submit(event) {
-    console.log(SERVER_URL)
-
     fetch(SERVER_URL + 'upload', {
         method: 'POST',
         headers: {
@@ -79,10 +77,10 @@ class Form extends React.Component {
       })
       .then((response) => response.json())
       .then((responseJson) => {
-        this.updateURL(responseJson.body.url);
+        this.updateURL(responseJson.id);
       })
       .catch((err) => console.log(err));
-    console.log(this.state.value);
+
   }
 
   render() {
