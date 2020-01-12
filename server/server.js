@@ -1,14 +1,19 @@
-const fs = require('fs')
 const express = require('express')
+const admin = require('firebase-admin')
+
+const serviceAccount = require('./todo-firebase-sdk.json');
+const config = require('./config.json')
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://todo-7bd7f.firebaseio.com"
+});
+
+const db = admin.database()
 
 const app = express()
 const PORT = process.env.port || config.port || 3000 // Temp port
 
-app.listen(PORT, () => console.log(`Example app listening on port ${port}`))
-
-fs.appendFile("log.txt", "Hello! \n", (error) => {
-    if (error) { console.log(error) }
-});
+app.listen(PORT, () => console.log(`Todo app listening on port ${PORT}`))
 
 /* Routes */
 app.use('/', (req, res) => {
