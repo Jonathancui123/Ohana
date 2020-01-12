@@ -1,19 +1,21 @@
 const express = require('express')
-const admin = require('firebase-admin')
+const MongoClient = require('mongodb').MongoClient;
 
-const serviceAccount = require('./todo-firebase-sdk.json');
-const config = require('./config.json')
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://todo-7bd7f.firebaseio.com"
+const uri = "mongodb+srv://user:<password>@cluster0-ivfom.gcp.mongodb.net/test?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true });
+client.connect(err => {
+
+  const collection = client.db("todo")
+
+  const PORT = process.env.port || 3000 // Temp port
+  app.listen(PORT, () => console.log(`Todo app listening on port ${PORT}`))
+  
+  // perform actions on the collection object
+  client.close();
 });
 
-const db = admin.database()
 
 const app = express()
-const PORT = process.env.port || config.port || 3000 // Temp port
-
-app.listen(PORT, () => console.log(`Todo app listening on port ${PORT}`))
 
 /* Routes */
 app.use('/', (req, res) => {
@@ -24,7 +26,15 @@ app.use('/', (req, res) => {
 })
 
 app.post('/upload', (req, res) => {
+    let file = {
+      id: Math.floor((Math.random()*1000)),
+      data: req.body.data
+    }
+    db.collection('files').insertOne(file, (err, result) => {
+      if (err) return console.log(err)
+    })
     console.log(req)
     res.send(`Request received`)
+    res.redirect('/')
 })
 
