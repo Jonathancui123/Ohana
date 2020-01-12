@@ -37,7 +37,7 @@ class Form extends React.Component {
   submit(event) {
     console.log(SERVER_URL)
 
-    fetch(SERVER_URL, {
+    fetch(SERVER_URL + 'upload', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
