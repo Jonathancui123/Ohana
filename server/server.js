@@ -27,18 +27,17 @@ app.get('/:id', (req, res) => {
     files.findOne(
         { _id: req.params.id }
     ).then((document, err) => {
-        if (err) { console.log("[-]1 " + err) }
+        if (err) { console.log(err) }
         res.json({
             data: document.data
         })
     }).catch((err) => {
-        console.log("[-]2 " + err)
+        console.log(err)
     })
 
 })
 
 app.post('/upload', (req, res) => {
-    console.log(req.body)
     let id = hash.hash58()
     let file = {
         _id: id,
