@@ -3,14 +3,14 @@ const cors = require('cors')
 const hash = require('./hash.js')
 const app = express()
 
-const PORT = process.env.port || 3000 // Temp port
+const PORT = process.env.PORT
 app.use(cors())
 app.use(express.json())
 app.listen(PORT, () => console.log(`Todo app listening on port ${PORT}`))
 
 const MongoClient = require('mongodb').MongoClient;
 
-const uri = "";
+const uri = process.env.DATABASE_URI;
 const client = new MongoClient(uri, { useNewUrlParser: true });
 let db;
 
