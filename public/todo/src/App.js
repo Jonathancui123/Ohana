@@ -1,9 +1,10 @@
 import React from 'react';
 
 import './App.css';
-import { PassThrough } from 'stream';
+
 const config = require('./config.json');
 const SERVER_URL = config.server_url;
+const CLIENT_URL = config.client_url;
 
 class Form extends React.Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class Form extends React.Component {
   
   loadFile() {
     
-    let fileurl = window.location.href.split('//localhost:3001/')
+    let fileurl = window.location.href.split(CLIENT_URL)
 
     if (fileurl.length > 1) {
       
