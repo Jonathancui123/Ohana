@@ -1,6 +1,7 @@
 import React from 'react';
 
 import './App.css';
+import { PassThrough } from 'stream';
 const config = require('./config.json');
 const SERVER_URL = config.server_url;
 
@@ -8,6 +9,7 @@ class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      changed: false,
       value: ""
     };
 
@@ -21,6 +23,7 @@ class Form extends React.Component {
   }
   
   loadFile() {
+    
     let fileurl = window.location.href.split('//localhost:3001/')
 
     if (fileurl.length > 1) {
@@ -45,6 +48,7 @@ class Form extends React.Component {
 
   handleChange(event) {
     this.setState({
+      changed: true,
       value: event.target.value
     }); //TODO: handle submit asynchronously
   }
@@ -54,7 +58,12 @@ class Form extends React.Component {
       switch (event.key.toLowerCase()) {
         case 's':
           event.preventDefault();
-          this.submit(event);
+          if (this.state.changed) {
+            this.submit(event);
+            this.setState({changed: false})
+          }
+          break;
+        defualt:
           break;
       }
     }
