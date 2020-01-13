@@ -3,7 +3,7 @@ const cors = require('cors')
 const hash = require('./hash.js')
 const app = express()
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 80
 app.use(cors())
 app.use(express.json())
 app.listen(PORT, () => console.log(`Todo app listening on port ${PORT}`))
