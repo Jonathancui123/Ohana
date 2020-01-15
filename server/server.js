@@ -24,13 +24,19 @@ app.get('/', (req, res) => {
 })
 
 app.get('/:id', (req, res) => {
-    files.findOne(
+    files.find(
         { _id: req.params.id }
-    ).then((document, err) => {
-        if (err) { console.log(err) }
-        res.json({
-            data: document.data
-        })
+    ).limit(1).then((document, err) => {
+        if (err) { console.log(err) };
+        // console.log(document)
+        // TODO make sure document isnt empty
+        if (document) {
+            res.json({
+                data: document.data
+            })
+        } else {
+            res.sendStatus(301)
+        }
     }).catch((err) => {
         console.log(err)
     })
