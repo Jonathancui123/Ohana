@@ -24,10 +24,9 @@ class Form extends React.Component {
   }
   
   loadFile() {
-    
-    let fileurl = window.location.href.split(CLIENT_URL)
-    if (fileurl.length > 1) {
-      fetch(SERVER_URL + fileurl[1], {
+    let fileurl = window.location.pathname
+    //if (fileurl.length > 1) {
+      fetch(SERVER_URL + fileurl, {
           method: 'GET',
           headers: {
             Accept: 'application/json',
@@ -39,7 +38,7 @@ class Form extends React.Component {
             value: data.data
           })
         })
-    }
+    //}
 
   }
 
@@ -69,7 +68,7 @@ class Form extends React.Component {
 
   submit(event) {
     if (this.state.changed) {
-      fetch(SERVER_URL + 'upload', {
+      fetch(SERVER_URL + '/upload', {
           method: 'POST',
           headers: {
             Accept: 'application/json',
