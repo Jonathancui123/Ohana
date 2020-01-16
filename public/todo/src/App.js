@@ -1,5 +1,5 @@
 import React from 'react';
-
+import TitleBar from './TitleBar.js';
 import './App.css';
 
 const config = require('./config.json');
@@ -26,9 +26,7 @@ class Form extends React.Component {
   loadFile() {
     
     let fileurl = window.location.href.split(CLIENT_URL)
-
     if (fileurl.length > 1) {
-      
       fetch(SERVER_URL + fileurl[1], {
           method: 'GET',
           headers: {
@@ -41,11 +39,9 @@ class Form extends React.Component {
             value: data.data
           })
         })
-        
     }
 
   }
-  
 
   handleChange(event) {
     this.setState({
@@ -59,12 +55,9 @@ class Form extends React.Component {
       switch (event.key.toLowerCase()) {
         case 's':
           event.preventDefault();
-          if (this.state.changed) {
-            this.submit(event);
-            this.setState({changed: false})
-          }
+          this.submit(event);
           break;
-        defualt:
+        default:
           break;
       }
     }
@@ -75,29 +68,32 @@ class Form extends React.Component {
   }
 
   submit(event) {
-    fetch(SERVER_URL + 'upload', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          data: this.state.value
+    if (this.state.changed) {
+      fetch(SERVER_URL + 'upload', {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            data: this.state.value
+          })
         })
-      })
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.updateURL(responseJson.id);
-      })
-      .catch((err) => console.log(err));
-
+        .then((response) => response.json())
+        .then((responseJson) => {
+          this.updateURL(responseJson.id);
+        })
+        .catch((err) => console.log(err));
+      this.setState({changed:false});
+    }
   }
 
   render() {
 
     return ( 
       <div class = "container" >
-        <textarea value= {this.state.value} onKeyDown = {this.handleKeyDown} onChange = {this.handleChange} /> 
+        <TitleBar changed = {this.state.changed} handleClick = {this.submit}/>
+        <textarea autofocus value= {this.state.value} onKeyDown = {this.handleKeyDown} onChange = {this.handleChange} /> 
       </div>
     )
   }
