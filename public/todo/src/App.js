@@ -89,11 +89,14 @@ class Form extends React.Component {
   }
 
   render() {
-
     return ( 
       <div class = "container" >
         <TitleBar changed = {this.state.changed} handleClick = {this.submit}/>
-        <textarea autofocus value= {this.state.value} onKeyDown = {this.handleKeyDown} onChange = {this.handleChange} /> 
+        <textarea autoFocus 
+          placeholder = "Hi! Press ctrl+s or click the dog to save."
+          value= {this.state.value} 
+          onKeyDown = {this.handleKeyDown} 
+          onChange = {this.handleChange} /> 
       </div>
     )
   }
