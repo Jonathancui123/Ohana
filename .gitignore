@@ -3,3 +3,4 @@
 /public/todo/node_modules
 /public/todo/build
 /public/todo/.firebase
+.env
