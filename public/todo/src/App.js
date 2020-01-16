@@ -64,6 +64,7 @@ class Form extends React.Component {
 
   updateURL(id) {
     window.history.pushState(null, null, '/' + id);
+    navigator.clipboard.writeText(CLIENT_URL + '/' + id);
   }
 
   submit(event) {
