@@ -1,0 +1,16 @@
+{
+    "name": "Paste Pal",
+    "version": "0.0.1",
+    "description": "Extension for Paste Pal",
+    "icons": { 
+       "128": "icon/pup.png" },
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": true
+      },
+    "permissions": [
+        "contextMenus",
+        "https://paste-dog-server.herokuapp.com/*"
+    ],
+    "manifest_version": 2
+}
