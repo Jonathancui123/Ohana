@@ -3,7 +3,7 @@
     "version": "0.0.1",
     "description": "Extension for Paste Pal",
     "icons": { 
-       "128": "icon/pup.png" },
+       "128": "icon/pup128.png" },
     "background": {
         "scripts": ["background.js"],
         "persistent": true
