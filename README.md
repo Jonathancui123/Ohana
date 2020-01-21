@@ -4,7 +4,7 @@ A simple to use pastebin with a clean interface and chrome integration.
 
 ## About
 
-View it live at [pastepal.ca](pastepal.ca).
+View it live at [pastepal.ca](https://pastepal.ca).
 
 ## Things we've learned
 
