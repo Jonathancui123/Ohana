@@ -1,6 +1,6 @@
 {
-  "short_name": "ToDo",
-  "name": "a minimal pastebin",
+  "short_name": "PastePal",
+  "name": "Paste Pal",
   "icons": [
     {
       "src": "favicon.ico",
