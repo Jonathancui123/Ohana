@@ -1,9 +1,11 @@
 {
     "name": "Paste Pal",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Extension for Paste Pal",
     "icons": { 
-       "128": "icon/pup128.png" },
+        "16": "icon/pup16.png",
+        "48": "icon/pup48.png",
+        "128": "icon/pup128.png" },
     "background": {
         "scripts": ["background.js"],
         "persistent": true
