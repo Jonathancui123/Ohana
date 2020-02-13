@@ -68,7 +68,7 @@ class Form extends React.Component {
   }
 
   submit(event) {
-    if (this.state.changed) {
+    if (this.state.changed && this.state.value !== "") {
       fetch(SERVER_URL + '/upload', {
           method: 'POST',
           headers: {
