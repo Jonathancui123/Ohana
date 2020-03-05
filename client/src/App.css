@@ -18,41 +18,30 @@
 
 div.container {
   overflow: hidden;
-  width: 95vw;
-  height: 95vh;
 }
+
 div.title-bar {
-  user-select: none;
-  display: flex;
-  align-items: center;
   justify-content: center;
 }
-img.logo {
+#title {
+  padding-left: 1em;
+  display: inline-block;
   user-select: none;
-  width: 50px;
-  margin: 10px;
 }
-h1 {
+#title img {
+  display: inline-block;
+  vertical-align: text-bottom;
+  width: 50px;
+  margin-left: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+#title h1 {
+  display: inline-block;
+  cursor: pointer;
   color: var(--text-color);
 }
-span.spacing {
-  width:3px;
-}
+
 textarea{
-  padding: 30px;
-  height: 95%;
-  width: 95%;
-  
   font-family: 'Fira Code', monospace;
-  font-size: 18px;
-  font-weight: 400;
-  color: white;
-  
-  border-style: none;
-  border-color: transparent;
-  outline: none;
-  resize: none; 
-  overflow: visible;
-  background-color: var(--bg);
-  
 }
