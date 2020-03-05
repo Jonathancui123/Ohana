@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import AceEditor from 'react-ace';
-
 import "ace-builds/src-noconflict/theme-tomorrow_night";
 
 export default class Editor extends Component {
@@ -26,7 +25,7 @@ export default class Editor extends Component {
                     editorProps={{ $blockScrolling: true }}
                     wrapEnabled={true}
                     showPrintMargin={false}
-                    height={"550px"}
+                    height={"550px"} //TODO: Implement dynamic height with CSS -Tony
                     width={"100%"} />
             </div>
         );
