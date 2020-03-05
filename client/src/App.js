@@ -1,5 +1,5 @@
 import React from 'react';
-import TitleBar from './TitleBar.js/index.js';
+import TitleBar from './components/TitleBar.js';
 import Editor from './components/Editor.js';
 import './App.css';
 
