@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import AceEditor from 'react-ace';
 import "ace-builds/src-noconflict/theme-tomorrow_night";
+import "ace-builds/src-noconflict/mode-c_cpp";
 
 export default class Editor extends Component {
     render() {
@@ -16,7 +17,7 @@ export default class Editor extends Component {
                     commands={[
                         {
                             name: 'save',
-                            bindKey: {win: 'Ctrl-s', mac: 'Command-s'},
+                            bindKey: { win: 'Ctrl-s', mac: 'Command-s' },
                             exec: this.props.submit
                         }
                     ]}
@@ -26,7 +27,11 @@ export default class Editor extends Component {
                     wrapEnabled={true}
                     showPrintMargin={false}
                     height={"550px"} //TODO: Implement dynamic height with CSS -Tony
-                    width={"100%"} />
+                    width={"100%"}
+                    fontSize={'16px'}
+                    style={{
+                        "font-family": 'Fira Code'
+                    }} />
             </div>
         );
     }
