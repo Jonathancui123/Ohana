@@ -18,8 +18,7 @@
 
 div.container {
   overflow: hidden;
-  width: 95vw;
-  height: 95vh;
+
 }
 div.title-bar {
   user-select: none;
