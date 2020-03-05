@@ -93,11 +93,6 @@ export default class App extends React.Component {
     return (
       <div className="container" >
         <TitleBar changed={this.state.changed} handleClick={this.submit} />
-        {/* <textarea autoFocus 
-          placeholder = "Hi! Press ctrl+s or click the dog to save."
-          value= {this.state.value} 
-          onKeyDown = {this.handleKeyDown} 
-          onChange = {this.handleChange} />  */}
         <Editor
           placeholder={"Hi! Press ctrl+s or click the dog to save.\n\n Hint: this will automatically put the generated link to your clipboard."}
           value={this.state.value}
