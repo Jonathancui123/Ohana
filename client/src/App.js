@@ -16,7 +16,6 @@ export default class App extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
     this.submit = this.submit.bind(this);
     this.loadFile = this.loadFile.bind(this);
     this.updateURL = this.updateURL.bind(this);
