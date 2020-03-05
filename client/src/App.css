@@ -18,7 +18,6 @@
 
 div.container {
   overflow: hidden;
-
 }
 
 div.title-bar {
@@ -44,20 +43,5 @@ div.title-bar {
 }
 
 textarea{
-  padding: 30px;
-  height: 95%;
-  width: 95%;
-  
   font-family: 'Fira Code', monospace;
-  font-size: 18px;
-  font-weight: 400;
-  color: white;
-  
-  border-style: none;
-  border-color: transparent;
-  outline: none;
-  resize: none; 
-  overflow: visible;
-  background-color: var(--bg);
-  
 }
