@@ -26,7 +26,8 @@ export default class Editor extends Component {
                     wrapEnabled={true}
                     showPrintMargin={false}
                     height={"550px"} //TODO: Implement dynamic height with CSS -Tony
-                    width={"100%"} />
+                    width={"100%"} 
+                    fontSize={'16px'}/>
             </div>
         );
     }
