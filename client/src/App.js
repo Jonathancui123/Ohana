@@ -50,19 +50,6 @@ export default class App extends React.Component {
     }); //TODO: handle submit asynchronously
   }
 
-  handleKeyDown(event) { //TODO: Remove, no longer needed --Tony
-    if (event.ctrlKey || event.metaKey) {
-      switch (event.key.toLowerCase()) {
-        case 's':
-          event.preventDefault();
-          this.submit(event);
-          break;
-        default:
-          break;
-      }
-    }
-  }
-
   updateURL(id) {
     window.history.pushState(null, null, '/' + id);
     navigator.clipboard.writeText(CLIENT_URL + '/' + id);
