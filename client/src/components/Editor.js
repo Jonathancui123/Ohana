@@ -5,10 +5,6 @@ import "ace-builds/src-noconflict/theme-tomorrow_night";
 import "../utils/modeImport";
 
 export default class Editor extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <div style={{
@@ -40,8 +36,8 @@ export default class Editor extends Component {
                         "indentedSoftWrap":false,
                     }}
                     style={{
-                        "font-family": 'Fira Code',
-                        "margin-left": '20px'
+                        "fontFamily": 'Fira Code',
+                        "marginLeft": '20px'
                     }} />
             </div>
         );

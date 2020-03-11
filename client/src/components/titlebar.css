@@ -13,10 +13,8 @@ div.title-bar {
     width: 50px;
     margin-left: 10px;
     margin-right: 10px;
-    cursor: pointer;
   }
   #title h1 {
     display: inline-block;
-    cursor: pointer;
     color: var(--text-color);
   }

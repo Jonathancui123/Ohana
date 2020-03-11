@@ -10,9 +10,9 @@ export default class Menu extends React.Component {
 
     render () {
         return(
-          <div class='menu'>
-            <Icon id='copy' onClick={this.print} class="fas fa-copy"/>
-            <Icon id='save' onClick={this.print} class="fas fa-save"/>
+          <div className='menu'>
+            <Icon id='copy' onClick={this.props.copyClipboard} className="fas fa-copy"/>
+            <Icon id='save' onClick={this.props.submit} className="fas fa-save"/>
           </div>
         )
     }

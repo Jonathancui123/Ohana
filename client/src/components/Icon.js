@@ -9,7 +9,7 @@ const Icon = (props) => {
     return (
         <div onClick={props.onClick}>
             <i 
-                class={props.class}
+                className={props.class}
                 style={iconStyle}
                 {...props}
             />

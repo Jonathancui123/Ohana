@@ -7,11 +7,13 @@ export default class TitleBar extends React.Component {
     render() {
         return (
             <div className="title-bar">
-                <div id = "title" onClick={this.props.handleClick}>
+                <div id = "title">
                     <img className = "logo" src = {Logo} alt = ""/>
                     <h1>paste pal</h1>
                 </div>
-                <Menu/>
+                <Menu 
+                    submit = {this.props.submit}
+                    copyClipboard={this.props.copyClipboard}/>
             </div>
         );
     }

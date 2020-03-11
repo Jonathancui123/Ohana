@@ -13,6 +13,7 @@ export default class App extends React.Component {
     this.state = {
       changed: false,
       mode: 'text',
+      id: '',
       value: ""
     };
 
@@ -20,6 +21,7 @@ export default class App extends React.Component {
     this.submit = this.submit.bind(this);
     this.loadFile = this.loadFile.bind(this);
     this.updateURL = this.updateURL.bind(this);
+    this.copyClipboard = this.copyClipboard.bind(this);
 
     this.loadFile();
   }
@@ -52,7 +54,13 @@ export default class App extends React.Component {
 
   updateURL(id) {
     window.history.pushState(null, null, '/' + id);
-    navigator.clipboard.writeText(CLIENT_URL + '/' + id);
+  }
+
+  copyClipboard() {
+    console.log(this.state.id);
+    if (this.state.id) {
+      navigator.clipboard.writeText(`http://${CLIENT_URL}/${this.state.id}`);
+    }
   }
 
   submit(event) {
@@ -69,6 +77,7 @@ export default class App extends React.Component {
       })
         .then((response) => response.json())
         .then((responseJson) => {
+          this.setState({id: responseJson.id});
           this.updateURL(responseJson.id);
         })
         .catch((err) => console.log(err));
@@ -79,9 +88,12 @@ export default class App extends React.Component {
   render() {
     return (
       <div className="container" >
-        <TitleBar changed={this.state.changed} handleClick={this.submit} />
+        <TitleBar 
+          changed={this.state.changed} 
+          submit={this.submit}
+          copyClipboard={this.copyClipboard} />
         <Editor
-          placeholder={"Hi! Press ctrl+s or click the dog to save."}
+          placeholder={"Hi! Type to begin."}
           value={this.state.value}
           onChange={this.handleChange}
           submit={this.submit}
