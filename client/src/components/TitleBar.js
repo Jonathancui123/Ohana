@@ -1,6 +1,7 @@
 import React from 'react';
+import Menu from './Menu';
 import Logo from '../logo.gif';
-import '../App.css';
+import './titlebar.css';
 
 export default class TitleBar extends React.Component {
     render() {
@@ -10,6 +11,7 @@ export default class TitleBar extends React.Component {
                     <img className = "logo" src = {Logo} alt = ""/>
                     <h1>paste pal</h1>
                 </div>
+                <Menu/>
             </div>
         );
     }
