@@ -12,6 +12,7 @@ export default class TitleBar extends React.Component {
                     <h1>paste pal</h1>
                 </div>
                 <Menu 
+                    changed = {this.props.changed}
                     submit = {this.props.submit}
                     copyClipboard={this.props.copyClipboard}
                     mode = {this.props.mode}
