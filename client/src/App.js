@@ -50,7 +50,7 @@ export default class App extends React.Component {
 
   handleChange(event) {
     this.setState({
-      changed: true,
+      changed: !!event, //convert to boolean
       value: event
     }); //TODO: handle submit asynchronously
   }
