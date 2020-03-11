@@ -20,28 +20,6 @@ div.container {
   overflow: hidden;
 }
 
-div.title-bar {
-  justify-content: center;
-}
-#title {
-  padding-left: 1em;
-  display: inline-block;
-  user-select: none;
-}
-#title img {
-  display: inline-block;
-  vertical-align: text-bottom;
-  width: 50px;
-  margin-left: 10px;
-  margin-right: 10px;
-  cursor: pointer;
-}
-#title h1 {
-  display: inline-block;
-  cursor: pointer;
-  color: var(--text-color);
-}
-
 textarea{
   font-family: 'Fira Code', monospace;
 }
