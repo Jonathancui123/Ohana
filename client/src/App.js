@@ -14,7 +14,7 @@ export default class App extends React.Component {
       changed: false,
       mode: 'text',
       id: '',
-      value: ""
+      value: ''
     };
     this.setMode = this.setMode.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -94,6 +94,7 @@ export default class App extends React.Component {
         <TitleBar
           changed={this.state.changed}
           submit={this.submit}
+          text={this.state.value}
           copyClipboard={this.copyClipboard}
           mode={this.state.mode}
           setMode={this.setMode} />

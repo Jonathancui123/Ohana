@@ -11,12 +11,23 @@ export default class Menu extends React.Component {
 
   renderCopyOrSave() {
     let icon;
-    if (this.props.changed) {
+    if (this.props.text === '') {
+      icon = <Icon
+        key='disabledSave' //required for prop rerender
+        id='save'
+        onClick={this.props.submit}
+        className="fas fa-save" 
+        style = {{
+          opacity:'30%',
+          cursor:'not-allowed'
+        }}/>
+    } else if (this.props.changed) {
       icon = <Icon
         key='save' //required for prop rerender
         id='save'
         onClick={this.props.submit}
-        className="fas fa-save" />
+        className="fas fa-save"
+      />
     } else {
       icon = <Icon
         key='copy' //required for prop rerender
