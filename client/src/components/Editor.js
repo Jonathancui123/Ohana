@@ -1,18 +1,24 @@
 import React, { Component } from 'react';
 import AceEditor from 'react-ace';
 import "ace-builds/src-noconflict/theme-tomorrow_night";
-import "ace-builds/src-noconflict/mode-c_cpp";
+import "../utils/modeImport";
 
 export default class Editor extends Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         return (
-            <div>
+            <div style={{
+                height: '80vh'
+            }}>
                 <AceEditor
                     focus //Autofocus
                     placeholder={this.props.placeholder}
                     value={this.props.value}
                     onChange={this.props.onChange}
-                    mode='text'
+                    mode={this.props.mode}
                     theme='tomorrow_night'
                     commands={[
                         {
@@ -22,15 +28,19 @@ export default class Editor extends Component {
                         }
                     ]}
                     name="paste-pal-editor"
-                    showGutter={true}
+                    showGutter={false}
                     editorProps={{ $blockScrolling: true }}
                     wrapEnabled={true}
                     showPrintMargin={false}
-                    height={"550px"} //TODO: Implement dynamic height with CSS -Tony
+                    height={"100%"} //TODO: Implement dynamic height with CSS -Tony
                     width={"100%"}
                     fontSize={'16px'}
+                    setOptions={{
+                        "indentedSoftWrap":false,
+                    }}
                     style={{
-                        "font-family": 'Fira Code'
+                        "font-family": 'Fira Code',
+                        "margin-left": '20px'
                     }} />
             </div>
         );

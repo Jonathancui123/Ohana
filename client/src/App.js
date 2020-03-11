@@ -12,6 +12,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       changed: false,
+      mode: 'text',
       value: ""
     };
 
@@ -80,10 +81,12 @@ export default class App extends React.Component {
       <div className="container" >
         <TitleBar changed={this.state.changed} handleClick={this.submit} />
         <Editor
-          placeholder={"Hi! Press ctrl+s or click the dog to save.\n\n Hint: this will automatically put the generated link to your clipboard."}
+          placeholder={"Hi! Press ctrl+s or click the dog to save."}
           value={this.state.value}
           onChange={this.handleChange}
           submit={this.submit}
+          mode={this.state.mode}
+          fontSize={this.state.fontSize}
         />
       </div>
     )
