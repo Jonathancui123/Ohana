@@ -13,13 +13,13 @@ export default class Menu extends React.Component {
     let icon;
     if (this.props.changed) {
       icon = <Icon
-        key='save'
+        key='save' //required for prop rerender
         id='save'
         onClick={this.props.submit}
         className="fas fa-save" />
     } else {
       icon = <Icon
-        key='copy'
+        key='copy' //required for prop rerender
         id='copy'
         onClick={this.props.copyClipboard}
         className="fas fa-copy" />
@@ -31,7 +31,7 @@ export default class Menu extends React.Component {
     return (
       <div className='menu'>
         {this.renderCopyOrSave()}
-        <select id='mode' value={this.props.mode} onChange={this.props.setMode}>
+        <select id='mode-select' value={this.props.mode} onChange={this.props.setMode}>
           <option value='text'>text</option>
           <option value='python'>python</option>
           <option value='typescript'>javascript</option>
