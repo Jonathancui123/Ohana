@@ -14,9 +14,9 @@ export default class App extends React.Component {
       changed: false,
       mode: 'text',
       id: '',
-      value: ""
+      value: ''
     };
-
+    this.setMode = this.setMode.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.submit = this.submit.bind(this);
     this.loadFile = this.loadFile.bind(this);
@@ -24,6 +24,9 @@ export default class App extends React.Component {
     this.copyClipboard = this.copyClipboard.bind(this);
 
     this.loadFile();
+  }
+  setMode(event) {
+    this.setState({mode: event.target.value});
   }
 
   loadFile() {
@@ -47,7 +50,7 @@ export default class App extends React.Component {
 
   handleChange(event) {
     this.setState({
-      changed: true,
+      changed: !!event, //convert to boolean
       value: event
     }); //TODO: handle submit asynchronously
   }
@@ -77,7 +80,7 @@ export default class App extends React.Component {
       })
         .then((response) => response.json())
         .then((responseJson) => {
-          this.setState({id: responseJson.id});
+          this.setState({ id: responseJson.id });
           this.updateURL(responseJson.id);
         })
         .catch((err) => console.log(err));
@@ -88,10 +91,13 @@ export default class App extends React.Component {
   render() {
     return (
       <div className="container" >
-        <TitleBar 
-          changed={this.state.changed} 
+        <TitleBar
+          changed={this.state.changed}
           submit={this.submit}
-          copyClipboard={this.copyClipboard} />
+          text={this.state.value}
+          copyClipboard={this.copyClipboard}
+          mode={this.state.mode}
+          setMode={this.setMode} />
         <Editor
           placeholder={"Hi! Type to begin."}
           value={this.state.value}
