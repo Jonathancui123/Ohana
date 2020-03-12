@@ -1,8 +1,8 @@
 import React from "react";
 import Icon from "./Icon";
 import Modal from "./Modal";
+import "@fortawesome/fontawesome-free/css/all.css";
 import "./icons.css";
-import "../fonts/css/all.css";
 
 export default class Menu extends React.Component {
     constructor(props) {
