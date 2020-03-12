@@ -1,13 +1,33 @@
-import React from 'react';
-import Icon from './Icon';
-import './icons.css';
-import '../fonts/all';
+import React from "react";
+import Icon from "./Icon";
+import Modal from "./Modal";
+import "./icons.css";
+import "../fonts/all";
 
 export default class Menu extends React.Component {
   constructor(props) {
     super(props);
+  
+    this.state = {
+        showModal: false
+    };
+
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this)
     this.renderCopyOrSave = this.renderCopyOrSave.bind(this);
   }
+
+    openModal() {
+        this.setState({
+            showModal: true
+        });
+    }
+
+    closeModal() {
+        this.setState({
+            showModal: false
+        })
+    }
 
   renderCopyOrSave() {
     let icon;
@@ -40,34 +60,40 @@ export default class Menu extends React.Component {
 
   render() {
     return (
-      <div className='menu'>
+        <div className="menu">
+            <Modal showModal={this.state.showModal} closeModal={this.closeModal}></Modal>
+            <Icon
+                id="copy"
+                onClick={this.openModal}
+                className="fas fa-circle"
+            />
         {this.renderCopyOrSave()}
-        <select id='mode-select' value={this.props.mode} onChange={this.props.setMode}>
-          <option value='text'>text</option>
-          <option value='python'>python</option>
-          <option value='typescript'>javascript</option>
-          <option value='c_cpp'>c/c++</option>
-          <option value='java'>java</option>
-          <option value='csharp'>c#</option>
-          <option value='golang'>go</option>
-          <option value='objectivec'>objective c</option>
-          <option value='php'>php</option>
-          <option value='ruby'>ruby</option>
-          <option value='rust'>rust</option>
-          <option value='sql'>sql</option>
-          <option value='kotlin'>kotlin</option>
-          <option value='clojure'>clojure</option>
-          <option value='d'>d</option>
-          <option value='cobol'>cobol</option>
-          <option value='haskell'>haskell</option>
-          <option value='json'>json</option>
-          <option value='lua'>lua</option>
-          <option value='julia'>julia</option>
-          <option value='markdown'>markdown</option>
-          <option value='scala'>scala</option>
-          <option value='swift'>swift</option>
-        </select>
-      </div>
+                <select id='mode-select' value={this.props.mode} onChange={this.props.setMode}>
+                  <option value='text'>text</option>
+                  <option value='python'>python</option>
+                  <option value='typescript'>javascript</option>
+                  <option value='c_cpp'>c/c++</option>
+                  <option value='java'>java</option>
+                  <option value='csharp'>c#</option>
+                  <option value='golang'>go</option>
+                  <option value='objectivec'>objective c</option>
+                  <option value='php'>php</option>
+                  <option value='ruby'>ruby</option>
+                  <option value='rust'>rust</option>
+                  <option value='sql'>sql</option>
+                  <option value='kotlin'>kotlin</option>
+                  <option value='clojure'>clojure</option>
+                  <option value='d'>d</option>
+                  <option value='cobol'>cobol</option>
+                  <option value='haskell'>haskell</option>
+                  <option value='json'>json</option>
+                  <option value='lua'>lua</option>
+                  <option value='julia'>julia</option>
+                  <option value='markdown'>markdown</option>
+                  <option value='scala'>scala</option>
+                  <option value='swift'>swift</option>
+                </select>
+        </div>
     )
   }
 }
