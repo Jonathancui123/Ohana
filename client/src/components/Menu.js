@@ -2,7 +2,7 @@ import React from "react";
 import Icon from "./Icon";
 import Modal from "./Modal";
 import "./icons.css";
-import "../fonts/all";
+import "../fonts/css/all.css";
 
 export default class Menu extends React.Component {
     constructor(props) {
@@ -80,7 +80,7 @@ export default class Menu extends React.Component {
                 <Icon
                     id="copy"
                     onClick={this.openModal}
-                    className="fas fa-circle"
+                    className="fas fa-cog"
                 />
             </div>
         );
