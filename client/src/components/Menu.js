@@ -76,12 +76,12 @@ export default class Menu extends React.Component {
                     mode={this.props.mode}
                     setMode={this.props.setMode}
                 ></Modal>
+                {this.renderCopyOrSave()}
                 <Icon
                     id="copy"
                     onClick={this.openModal}
                     className="fas fa-circle"
                 />
-                {this.renderCopyOrSave()}
             </div>
         );
     }
