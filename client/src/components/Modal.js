@@ -2,10 +2,6 @@ import React from "react";
 import "./modal.css";
 
 export default class Modal extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         if (!this.props.showModal) {
             return null;
@@ -44,6 +40,12 @@ export default class Modal extends React.Component {
                                 <option value="markdown">markdown</option>
                                 <option value="scala">scala</option>
                                 <option value="swift">swift</option>
+                            </select>
+                        </div>
+                        <div id="font-size">
+                            <p>Font size:</p>
+                            <select>
+                                <option>1</option>
                             </select>
                         </div>
                         <button
