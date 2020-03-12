@@ -72,42 +72,16 @@ export default class Menu extends React.Component {
                 <Modal
                     showModal={this.state.showModal}
                     closeModal={this.closeModal}
+
+                    mode={this.props.mode}
+                    setMode={this.props.setMode}
                 ></Modal>
+                {this.renderCopyOrSave()}
                 <Icon
                     id="copy"
                     onClick={this.openModal}
                     className="fas fa-circle"
                 />
-                {this.renderCopyOrSave()}
-                <select
-                    id="mode-select"
-                    value={this.props.mode}
-                    onChange={this.props.setMode}
-                >
-                    <option value="text">text</option>
-                    <option value="python">python</option>
-                    <option value="typescript">javascript</option>
-                    <option value="c_cpp">c/c++</option>
-                    <option value="java">java</option>
-                    <option value="csharp">c#</option>
-                    <option value="golang">go</option>
-                    <option value="objectivec">objective c</option>
-                    <option value="php">php</option>
-                    <option value="ruby">ruby</option>
-                    <option value="rust">rust</option>
-                    <option value="sql">sql</option>
-                    <option value="kotlin">kotlin</option>
-                    <option value="clojure">clojure</option>
-                    <option value="d">d</option>
-                    <option value="cobol">cobol</option>
-                    <option value="haskell">haskell</option>
-                    <option value="json">json</option>
-                    <option value="lua">lua</option>
-                    <option value="julia">julia</option>
-                    <option value="markdown">markdown</option>
-                    <option value="scala">scala</option>
-                    <option value="swift">swift</option>
-                </select>
             </div>
         );
     }
