@@ -32,7 +32,7 @@ export default class Editor extends Component {
                     showPrintMargin={false}
                     height={"100%"} //TODO: Implement dynamic height with CSS -Tony
                     width={"100%"}
-                    fontSize={'16px'}
+                    fontSize={this.props.fontSize}
                     setOptions={{
                         "indentedSoftWrap":false,
                     }}

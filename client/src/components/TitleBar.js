@@ -17,7 +17,10 @@ export default class TitleBar extends React.Component {
                     submit = {this.props.submit}
                     copyClipboard={this.props.copyClipboard}
                     mode = {this.props.mode}
-                    setMode = {this.props.setMode} />
+                    setMode = {this.props.setMode} 
+                    fontSize = {this.props.fontSize}
+                    setFontSize = {this.props.setFontSize}
+                    />
             </div>
         );
     }

@@ -13,10 +13,12 @@ export default class App extends React.Component {
         this.state = {
             changed: false,
             mode: "text",
+            fontSize: "16px",
             id: "",
             value: ""
         };
         this.setMode = this.setMode.bind(this);
+        this.setFontSize = this.setFontSize.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.submit = this.submit.bind(this);
         this.loadFile = this.loadFile.bind(this);
@@ -27,6 +29,10 @@ export default class App extends React.Component {
     }
     setMode(event) {
         this.setState({ mode: event.target.value });
+    }
+
+    setFontSize(event) {
+        this.setState({ fontSize: event.target.value });
     }
 
     loadFile() {
@@ -100,6 +106,8 @@ export default class App extends React.Component {
                     copyClipboard={this.copyClipboard}
                     mode={this.state.mode}
                     setMode={this.setMode}
+                    fontSize={this.state.fontSize}
+                    setFontSize={this.setFontSize}
                 />
                 <Editor
                     placeholder={"Hi! Type to begin."}

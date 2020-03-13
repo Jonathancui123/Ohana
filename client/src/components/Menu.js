@@ -72,9 +72,10 @@ export default class Menu extends React.Component {
                 <Modal
                     showModal={this.state.showModal}
                     closeModal={this.closeModal}
-
                     mode={this.props.mode}
                     setMode={this.props.setMode}
+                    fontSize={this.props.fontSize}
+                    setFontSize={this.props.setFontSize}
                 ></Modal>
                 {this.renderCopyOrSave()}
                 <Icon
