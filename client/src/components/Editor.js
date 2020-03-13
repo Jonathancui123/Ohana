@@ -8,7 +8,8 @@ export default class Editor extends Component {
     render() {
         return (
             <div style={{
-                height: '80vh'
+                height: '80vh',
+                margin: '0 20px 0 20px'
             }}>
                 <AceEditor
                     focus //Autofocus
@@ -36,8 +37,7 @@ export default class Editor extends Component {
                         "indentedSoftWrap":false,
                     }}
                     style={{
-                        "fontFamily": 'Fira Code',
-                        "marginLeft": '20px'
+                        "fontFamily": 'Fira Code'
                     }} />
             </div>
         );
