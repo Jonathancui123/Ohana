@@ -21,6 +21,7 @@
 }
 
 .modal-content select {
+    width: 10em;
     font-size: 16px;
     font-family: 'Fira Code';
     line-height: 1.3;
