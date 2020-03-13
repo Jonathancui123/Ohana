@@ -2,3 +2,7 @@
 .ace_comment {
     font-family: 'Fira Code'
 }
+
+.ace_mobile-menu { 
+    display: none !important 
+}
