@@ -88,7 +88,7 @@ export default class App extends React.Component {
             })
                 .then(response => response.json())
                 .then(responseJson => {
-                    this.setState({ id: responseJson.id });
+                    this.setState({ changed: false, id: responseJson.id });
                     this.updateURL(responseJson.id);
                 })
                 .catch(err => console.log(err));
