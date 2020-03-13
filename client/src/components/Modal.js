@@ -8,7 +8,7 @@ export default class Modal extends React.Component {
         } else {
             return (
                 <div className="modal">
-                    <div className="modalContent">
+                    <div className="modal-content">
                         <b>Settings</b>
                         <div>
                             <p>Syntax highlighting:</p>
