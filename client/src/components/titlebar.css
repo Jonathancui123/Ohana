@@ -1,0 +1,20 @@
+div.title-bar {
+    justify-content: space-between;
+    display: flex;
+  }
+  #title {
+    padding-left: 1em;
+    display: inline-block;
+    user-select: none;
+  }
+  #title img {
+    display: inline-block;
+    vertical-align: text-bottom;
+    width: 50px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  #title h1 {
+    display: inline-block;
+    color: var(--text-color);
+  }
