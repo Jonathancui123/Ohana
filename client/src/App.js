@@ -3,7 +3,7 @@ import TitleBar from "./components/TitleBar.js";
 import Editor from "./components/Editor.js";
 import "./App.css";
 
-const config = require("./config.json");
+const config = require("./config");
 const SERVER_URL = config.server_url;
 const CLIENT_URL = config.client_url;
 
