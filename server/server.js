@@ -73,6 +73,18 @@ app.get("/:id", (req, res) => {
         });
 });
 
+app.get("/newHash", (req, res) => {
+    try{
+        let newHash = hash.hash58();
+        res.send({
+            hash : newHash 
+        })
+    } catch(error) {
+        console.log(error);
+    }
+    
+});
+
 app.post("/upload", (req, res) => {
     let id = hash.hash58();
     let file = {
