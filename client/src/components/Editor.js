@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import fileUrl from '../utils/fileUrl';
 import AceEditor from 'react-ace';
 import "./editor.css"
 import "ace-builds/src-noconflict/theme-tomorrow_night";
@@ -79,12 +80,15 @@ export default class Editor extends Component {
 
     getRef() {
         var ref = window.firebase.database().ref();
-        var hash = window.location.pathname;
-        if (hash) {
-          ref = ref.child(hash);
+        var id = fileUrl.getFileUrl();
+        if (id) {
+          ref = ref.child(id);
         } else {
-          ref = ref.push(); // generate unique location.
-          window.location = window.location + '#' + ref.key; // add it as a hash to the URL.
+        
+            //BREAK OUT!!
+        
+            //   ref = hash.hash58(); // generate unique location.
+        //   window.location = window.location + '#' + ref.key; // add it as a hash to the URL.
         }
         if (typeof console !== 'undefined') {
           console.log('Firebase data: ', ref.toString());

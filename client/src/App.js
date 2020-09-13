@@ -1,6 +1,7 @@
 import React from "react";
 import TitleBar from "./components/TitleBar.js";
 import Editor from "./components/Editor.js";
+import {getFileUrl, newFileUrl} from "./utils/fileUrl.js";
 import "./App.css";
 
 import config from "./config.js"
@@ -23,13 +24,18 @@ export default class App extends React.Component {
         this.submit = this.submit.bind(this);
         this.loadFile = this.loadFile.bind(this);
         this.updateURL = this.updateURL.bind(this);
-        this.copyClipboard = this.copyClipboard.bind(this);
-
-        console.log(SERVER_URL)
-        console.log(CLIENT_URL)
-
-        this.loadFile();
+        this.copyClipboard = this.copyClipboard.bind(this);       
     }
+
+    componentDidMount(){
+        if (getFileUrl() !== undefined){ // user has specified a file in the pathName
+            this.loadFile();
+        } else { // generate a new path for the user's new file
+            const newPath = newFileUrl();    
+            this.updateURL(newPath);
+        }
+    }
+
     setMode(event) {
         this.setState({ mode: event.target.value });
     }
@@ -39,8 +45,7 @@ export default class App extends React.Component {
     }
 
     loadFile() {
-        let fileurl = window.location.pathname;
-        //if (fileurl.length > 1) {
+        let fileurl = getFileUrl();
         fetch(SERVER_URL + fileurl, {
             method: "GET",
             headers: {
@@ -54,7 +59,6 @@ export default class App extends React.Component {
                     value: data.data
                 });
             });
-        //}
     }
 
     handleChange(event) {
