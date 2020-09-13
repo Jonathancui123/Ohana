@@ -10,7 +10,8 @@ Built with React and Node.js
 View it live at [pastepal.ca](https://pastepal.ca).
 
 ## Setup
-Clone the repo, then install dependencies
+First, clone the repo
+Then install dependencies:
 ```
 cd server
 npm i 
