@@ -18,12 +18,12 @@ export default class Editor extends Component {
             appId: "1:434011141059:web:da6f150db2f7f67563c376"
         };
         // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
+        window.firebase.initializeApp(firebaseConfig);
         //// Get Firebase Database reference.
         var firepadRef = this.getRef();      
 
         //// Create ACE
-        var editor = ace.edit("firepad-container");
+        var editor = window.ace.edit("firepad-container");
         editor.setTheme("ace/theme/textmate");
         var session = editor.getSession();
         session.setUseWrapMode(true);
@@ -31,7 +31,7 @@ export default class Editor extends Component {
         session.setMode("ace/mode/javascript");
 
         //// Create Firepad.
-        var firepad = Firepad.fromACE(firepadRef, editor, {
+        var firepad = window.Firepad.fromACE(firepadRef, editor, {
             defaultText: '// JavaScript Editing with Firepad!\nfunction go() {\n  var message = "Hello, world.";\n  console.log(message);\n}'
         });
     }
@@ -78,7 +78,7 @@ export default class Editor extends Component {
     }
 
     getRef() {
-        var ref = firebase.database().ref();
+        var ref = window.firebase.database().ref();
         var hash = window.location.hash.replace(/#/g, '');
         if (hash) {
           ref = ref.child(hash);
