@@ -1,7 +1,7 @@
 import React from "react";
 import TitleBar from "./components/TitleBar.js";
 import Editor from "./components/Editor.js";
-import {getFileUrl, newFileUrl} from "./utils/fileUrl.js";
+import fileUrlUtil from "./utils/fileUrl.js";
 import "./App.css";
 
 import config from "./config.js"
@@ -28,10 +28,10 @@ export default class App extends React.Component {
     }
 
     componentDidMount(){
-        if (getFileUrl() !== undefined){ // user has specified a file in the pathName
+        if (fileUrlUtil.getFileUrl() !== undefined){ // user has specified a file in the pathName
             this.loadFile();
         } else { // generate a new path for the user's new file
-            const newPath = newFileUrl();    
+            const newPath = fileUrlUtil.newFileUrl();    
             this.updateURL(newPath);
         }
     }
@@ -45,7 +45,7 @@ export default class App extends React.Component {
     }
 
     loadFile() {
-        let fileurl = getFileUrl();
+        let fileurl = fileUrlUtil.getFileUrl();
         fetch(SERVER_URL + fileurl, {
             method: "GET",
             headers: {
