@@ -21,6 +21,7 @@ client.connect(err => {
     if (err !== undefined) {
         console.log(err);
     }
+    // TODO change database name to "CodePals"
     files = client.db("todo").collection("files");
 });
 

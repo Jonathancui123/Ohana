@@ -5,7 +5,24 @@ import "ace-builds/src-noconflict/theme-tomorrow_night";
 import "../utils/modeImport";
 
 export default class Editor extends Component {
+
+    componentDidMount(){
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyAceJM2eYvADgHBHtwCFl1EJjdQlGBzJFk",
+            authDomain: "codepals-11647.firebaseapp.com",
+            databaseURL: "https://codepals-11647.firebaseio.com",
+            projectId: "codepals-11647",
+            storageBucket: "codepals-11647.appspot.com",
+            messagingSenderId: "434011141059",
+            appId: "1:434011141059:web:da6f150db2f7f67563c376"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    }
+
     render() {
+        
         return (
             <div style={{
                 height: '80vh',
