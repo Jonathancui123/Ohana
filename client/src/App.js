@@ -3,7 +3,7 @@ import TitleBar from "./components/TitleBar.js";
 import Editor from "./components/Editor.js";
 import "./App.css";
 
-const config = require("./config");
+import config from "./config.js"
 const SERVER_URL = config.server_url;
 const CLIENT_URL = config.client_url;
 
@@ -24,6 +24,9 @@ export default class App extends React.Component {
         this.loadFile = this.loadFile.bind(this);
         this.updateURL = this.updateURL.bind(this);
         this.copyClipboard = this.copyClipboard.bind(this);
+
+        console.log(SERVER_URL)
+        console.log(CLIENT_URL)
 
         this.loadFile();
     }
@@ -66,7 +69,7 @@ export default class App extends React.Component {
     }
 
     copyClipboard() {
-        console.log(this.state.id);
+        console.log(`Copied: ${this.state.id}`);
         if (this.state.id) {
             navigator.clipboard.writeText(
                 `http://${CLIENT_URL}/${this.state.id}`

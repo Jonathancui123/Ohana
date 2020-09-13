@@ -9,7 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 80;
 app.use(cors());
 app.use(express.json());
-app.listen(PORT, () => console.log(`Todo app listening on port ${PORT}`));
+app.listen(PORT, () => console.log(`CodePals server listening on port ${PORT}`));
 
 const MongoClient = require("mongodb").MongoClient;
 
@@ -18,7 +18,9 @@ const client = new MongoClient(uri, { useNewUrlParser: true });
 let db;
 
 client.connect(err => {
-    console.log(err);
+    if (err !== undefined) {
+        console.log(err);
+    }
     files = client.db("todo").collection("files");
 });
 

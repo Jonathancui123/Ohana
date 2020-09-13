@@ -1,7 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "server for todo",
+  "description": "Server for CodePals",
   "main": "app.js",
   "scripts": {
     "test": "node server.js",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jinyic/todo.git"
+    "url": "git+https://github.com/Jonathancui123/CodePals.git"
   },
-  "author": "jinyi-li tony-zhao",
+  "author": "jinyi-li tony-zhao jonathan-cui",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jinyic/todo/issues"
+    "url": "https://github.com/Jonathancui123/CodePals/issues"
   },
-  "homepage": "https://github.com/jinyic/todo#readme",
+  "homepage": "https://github.com/Jonathancui123/CodePals#readme",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
