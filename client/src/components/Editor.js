@@ -79,7 +79,7 @@ export default class Editor extends Component {
 
     getRef() {
         var ref = window.firebase.database().ref();
-        var hash = window.location.hash.replace(/#/g, '');
+        var hash = window.location.pathname;
         if (hash) {
           ref = ref.child(hash);
         } else {

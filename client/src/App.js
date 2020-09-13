@@ -100,6 +100,8 @@ export default class App extends React.Component {
     }
 
     render() {
+        console.log(`Pathname: ${window.location.pathname}`)
+
         return (
             <div className="container">
                 <TitleBar
