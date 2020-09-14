@@ -8,16 +8,16 @@ class fileUrlUtil{
         return pathName.length > 1 ? pathName : undefined;
     }
     
-    async newFileUrl(){
+    newFileUrl(){
         const hashEndpoint = SERVER_URL + "/newHash"
-        fetch(hashEndpoint , {
+        return fetch(hashEndpoint , {
             method: "GET",
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json"
             }
         })
-            .then(response => response.text())
+            .then(response => {console.log(`hash ${response}`); return response.text()})
     }
 }
 
