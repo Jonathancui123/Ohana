@@ -1,7 +1,6 @@
-# Paste Pal
+# Ohana
 
-
-A simple to use pastebin with a modern interface and chrome integration.
+No programmer left behind! Simple real-time collaboration for code in any language of your choice. 
 
 ## About
 

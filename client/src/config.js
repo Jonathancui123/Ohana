@@ -2,7 +2,7 @@ let config;
 
 if (process.env.NODE_ENV === "development") {
     config =  {
-        server_url: "http://localhost:80",
+        server_url: "http://localhost:5000",
         client_url: "http://localhost:3000"
     }
 } else {
