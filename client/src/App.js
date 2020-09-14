@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 import TitleBar from "./components/TitleBar.js";
 import Editor from "./components/Editor.js";
 import fileUrlUtil from "./utils/fileUrl.js";
@@ -16,7 +17,8 @@ export default class App extends React.Component {
             mode: "text",
             fontSize: "16px",
             id: "",
-            value: ""
+            value: "",
+            redirect: undefined
         };
         this.setMode = this.setMode.bind(this);
         this.setFontSize = this.setFontSize.bind(this);
@@ -32,8 +34,12 @@ export default class App extends React.Component {
         } else { // generate a new path for the user's new file
             console.log("Generating new url")
             const newPath = await fileUrlUtil.newFileUrl();    
-            this.props.history.push(newPath);
+            this.redirect(newPath);
         }
+    }
+
+    redirect(path){
+        this.setState({redirect: path})
     }
 
     setMode(event) {
@@ -93,7 +99,7 @@ export default class App extends React.Component {
                 .then(response => response.json())
                 .then(responseJson => {
                     this.setState({ changed: false, id: responseJson.id });
-                    this.props.history.push(responseJson.id);
+                    this.redirect(responseJson.id);
                 })
                 .catch(err => console.log(err));
             this.setState({ changed: false });
@@ -102,7 +108,9 @@ export default class App extends React.Component {
 
     render() {
         console.log(`Pathname: ${window.location.pathname}`)
-
+        if (this.state.redirect){
+            return <Redirect to={this.state.redirect}/>
+        }
         return (
             <div className="container">
                 <TitleBar
