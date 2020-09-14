@@ -32,6 +32,7 @@ export default class App extends React.Component {
             this.loadFile();
         } else { // generate a new path for the user's new file
             let newPath = await fileUrlUtil.newFileUrl()
+            console.log(`new file url is: ${newPath}`)
             this.setState({fileUrl: newPath})
             this.redirect(newPath)
         }

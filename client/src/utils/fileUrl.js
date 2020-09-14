@@ -17,7 +17,7 @@ class fileUrlUtil{
                 "Content-Type": "application/json"
             }
         })
-            .then(response => {console.log(`hash ${response}`); return response.text()})
+            .then(response => {return response.text()})
     }
 }
 
