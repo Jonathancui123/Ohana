@@ -15,6 +15,11 @@ export default class Editor extends Component {
             editor: undefined,
             firepad: undefined
         }
+        this.session = null
+        this.editor = undefined
+        this.firepad = undefined
+
+        this.defaultText = '# Welcome to Ohana :)\n\ndef ohana() -> String:\n\tohanaMeaning = "family"\n\tfamilyMeaning = "nobody gets left behind or forgotten"\n\treturn "Ohana means" + ohanaMeaning + ". Family means" + familyMeaning + "."\n\n# To get started, choose a language and start typing!'
     }
 
     async componentDidMount(){
@@ -32,21 +37,41 @@ export default class Editor extends Component {
         // Initialize Firebase
         window.firebase.initializeApp(firebaseConfig);
         
-        await this.initAceEditor();
-        await this.initSession();
-        await this.initFirepad();
-        
+        //// Create ACE
+        var editor = window.ace.edit("firepad-container");
+        editor.setOptions({
+            fontFamily: "Fira Code",
+            theme: 'ace/theme/tomorrow_night',
+            indentedSoftWrap : false,
+        });
+        this.editor = editor
+
+        var session = editor.getSession();
+        session.setUseWrapMode(true);
+        session.setUseWorker(false);
+        session.setMode("ace/mode/python");
+        this.session = session
+       
+
+        // Get Firebase Database reference.
+        var firepadRef = this.getRef(this.props.fileUrl);      
+        //// Create Firepad.
+        var firepad = window.Firepad.fromACE(firepadRef, this.editor, {
+            defaultText: this.defaultText
+        });        
+        this.firepad = firepad
     }
 
+    
     componentDidUpdate(){
-        console.log("Component did update")
-        console.log(`Props`)
-        console.log(this.props)
-        this.state.session.setMode("ace/mode/" + this.props.mode);
-    }
+        this.session.setMode("ace/mode/" + this.props.mode);
 
-    static async getDerivedStateFromProps() {
-        await this.initFirepad();
+        // Get the new Firebase Database reference.
+        var firepadRef = this.getRef(this.props.fileUrl);      
+        //// Create Firepad.
+        var firepad = window.Firepad.fromACE(firepadRef, this.editor, {
+            // defaultText: this.defaultText
+        });        
     }
 
     render() {        
