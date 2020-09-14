@@ -7,8 +7,8 @@ if (process.env.NODE_ENV === "development") {
     }
 } else {
     config =  {
-        server_url: "https://paste-dog-server.herokuapp.com",
-        client_url: "pastepal.ca"
+        server_url: "https://ohana-fam-backend.herokuapp.com",
+        client_url: "https://codepals-11647.web.app"
     }
 }
 

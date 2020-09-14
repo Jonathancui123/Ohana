@@ -9,7 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
-app.listen(PORT, () => console.log(`CodePals server listening on port ${PORT}`));
+app.listen(PORT, () => console.log(`Ohana server listening on port ${PORT}`));
 
 // const MongoClient = require("mongodb").MongoClient;
 
@@ -32,6 +32,7 @@ app.use((req, res, next) => {
 
 app.get("/", (req, res) => {
     res.status(200);
+    res.send("Ohana means family")
 });
 
 app.get("/newHash", (req, res) => {
