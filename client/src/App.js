@@ -14,7 +14,7 @@ export default class App extends React.Component {
         this.state = {
             changed: false,
             mode: "text",
-            fontSize: "16px",
+            fontSize: "20px",
             fileUrl: fileUrlUtil.getFileUrl(),
             value: "",
             redirect: undefined

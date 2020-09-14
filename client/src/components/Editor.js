@@ -7,6 +7,14 @@ import "../utils/modeImport";
 
 export default class Editor extends Component {
 
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            session: null
+        }
+    }
+
     componentDidMount(){
 
         // Firebase configuration for real-time collaboration on firepad
@@ -26,27 +34,41 @@ export default class Editor extends Component {
 
         //// Create ACE
         var editor = window.ace.edit("firepad-container");
-        editor.setTheme("ace/theme/textmate");
+        editor.setOptions({
+            fontFamily: "Fira Code",
+            theme: 'ace/theme/tomorrow_night',
+            indentedSoftWrap : false,
+        });
         var session = editor.getSession();
         session.setUseWrapMode(true);
         session.setUseWorker(false);
-        session.setMode("ace/mode/javascript");
+        // session.setMode("ace/mode/" + this.props.mode);
+        session.setMode("ace/mode/text");
 
         //// Create Firepad.
         var firepad = window.Firepad.fromACE(firepadRef, editor, {
-            defaultText: '// JavaScript Editing with Firepad!\nfunction go() {\n  var message = "Hello, world.";\n  console.log(message);\n}'
+            defaultText: '// JavaScript Editing with Firepad!\nfunction go() {\n    var message = "Hello, world.";\n    console.log(message);\n}'
+        });
+
+        this.setState({
+            session
         });
     }
 
+    componentDidUpdate() {
+        this.state.session.setMode("ace/mode/" + this.props.mode);
+    }
+
     render() {
-        
         return (
             <div 
             id="firepad-container"
             style={{
-                height: '80vh',
-                margin: '0 20px 0 20px'
-            }}>
+                "height": '80vh',
+                "margin": '0 20px 0 20px',
+                fontSize: this.props.fontSize,
+            }}
+            >
                 {/* <AceEditor
                     focus //Autofocus
                     placeholder={this.props.placeholder}
