@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import fileUrl from '../utils/fileUrl';
+import fileUrlUtil from '../utils/fileUrl';
 import AceEditor from 'react-ace';
 import "./editor.css"
 import "ace-builds/src-noconflict/theme-tomorrow_night";
@@ -8,6 +8,7 @@ import "../utils/modeImport";
 export default class Editor extends Component {
 
     componentDidMount(){
+
         // Firebase configuration for real-time collaboration on firepad
         var firebaseConfig = {
             apiKey: "AIzaSyAceJM2eYvADgHBHtwCFl1EJjdQlGBzJFk",
@@ -21,7 +22,7 @@ export default class Editor extends Component {
         // Initialize Firebase
         window.firebase.initializeApp(firebaseConfig);
         //// Get Firebase Database reference.
-        var firepadRef = this.getRef();      
+        var firepadRef = this.getRef(this.props.fileUrl);      
 
         //// Create ACE
         var editor = window.ace.edit("firepad-container");
@@ -78,17 +79,13 @@ export default class Editor extends Component {
         );
     }
 
-    getRef() {
+    getRef(fileUrl) {
         var ref = window.firebase.database().ref();
-        var id = fileUrl.getFileUrl();
-        if (id) {
-          ref = ref.child(id);
-        } else {
-        
-            //BREAK OUT!!
-        
-            //   ref = hash.hash58(); // generate unique location.
-        //   window.location = window.location + '#' + ref.key; // add it as a hash to the URL.
+        if (fileUrl !== undefined) { // if a file url is specified, use that as ref
+          ref = ref.child(fileUrl);
+        } else { // The user has not yet been directed to a room, use a random firebase location   
+            ref = ref.push(); // generate unique location.
+            // window.location = window.location + '#' + ref.key; // add it as a hash to the URL.
         }
         if (typeof console !== 'undefined') {
           console.log('Firebase data: ', ref.toString());

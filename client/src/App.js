@@ -15,7 +15,7 @@ export default class App extends React.Component {
             changed: false,
             mode: "text",
             fontSize: "16px",
-            id: "",
+            fileUrl: fileUrlUtil.getFileUrl(),
             value: "",
             redirect: undefined
         };
@@ -27,16 +27,17 @@ export default class App extends React.Component {
         this.copyClipboard = this.copyClipboard.bind(this);       
     }
 
-    componentDidMount(){
+    async componentDidMount(){
         if (fileUrlUtil.getFileUrl() !== undefined){ // user has specified a file in the pathName
             this.loadFile();
         } else { // generate a new path for the user's new file
-            fileUrlUtil.newFileUrl()
-            .then(newPath => {this.redirect(newPath)})
+            let newPath = await fileUrlUtil.newFileUrl()
+            this.setState({fileUrl: newPath})
+            this.redirect(newPath)
         }
     }
-    redirect(id) {
-        window.history.pushState(null, null, "/" + id);
+    redirect(path) {
+        window.history.pushState(null, null, "/" + path);
     }
 
     setMode(event) {
@@ -73,10 +74,10 @@ export default class App extends React.Component {
 
 
     copyClipboard() {
-        console.log(`Copied: ${this.state.id}`);
-        if (this.state.id) {
+        console.log(`Copied: ${this.state.fileUrl}`);
+        if (this.state.fileUrl) {
             navigator.clipboard.writeText(
-                `http://${CLIENT_URL}/${this.state.id}`
+                `http://${CLIENT_URL}/${this.state.fileUrl}`
             );
         }
     }
@@ -95,7 +96,7 @@ export default class App extends React.Component {
             })
                 .then(response => response.json())
                 .then(responseJson => {
-                    this.setState({ changed: false, id: responseJson.id });
+                    this.setState({ changed: false, fileUrl: responseJson.id });
                     this.redirect(responseJson.id);
                 })
                 .catch(err => console.log(err));
@@ -123,6 +124,7 @@ export default class App extends React.Component {
                 submit={this.submit}
                 mode={this.state.mode}
                 fontSize={this.state.fontSize}
+                fileUrl={this.state.fileUrl}
             />
         </div>
     );
