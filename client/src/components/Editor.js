@@ -11,11 +11,13 @@ export default class Editor extends Component {
         super(props)
 
         this.state = {
-            session: null
+            session: undefined,
+            editor: undefined,
+            firepad: undefined
         }
     }
 
-    componentDidMount(){
+    async componentDidMount(){
 
         // Firebase configuration for real-time collaboration on firepad
         var firebaseConfig = {
@@ -30,37 +32,20 @@ export default class Editor extends Component {
         // Initialize Firebase
         window.firebase.initializeApp(firebaseConfig);
 
-        //// Create ACE
-        var editor = window.ace.edit("firepad-container");
-        editor.setOptions({
-            fontFamily: "Fira Code",
-            theme: 'ace/theme/tomorrow_night',
-            indentedSoftWrap : false,
-        });
-        var session = editor.getSession();
-        session.setUseWrapMode(true);
-        session.setUseWorker(false);
-        // session.setMode("ace/mode/" + this.props.mode);
-        session.setMode("ace/mode/text");
-
-        this.setState({
-            session
-        });
+        await this.initAceEditor();
+        await this.initSession();
+        await this.initFirepad();
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(){
         this.state.session.setMode("ace/mode/" + this.props.mode);
     }
 
-    render() {
-        // Get Firebase Database reference.
-        var firepadRef = this.getRef(this.props.fileUrl);      
+    static async getDerivedStateFromProps() {
+        await this.initFirepad();
+    }
 
-        // Create Firepad.
-        var firepad = window.Firepad.fromACE(firepadRef, editor, {
-            defaultText: '// JavaScript Editing with Firepad!\nfunction go() {\n    var message = "Hello, world.";\n    console.log(message);\n}'
-        });
-
+    render() {        
         return (
             <div 
             id="firepad-container"
@@ -102,12 +87,49 @@ export default class Editor extends Component {
         );
     }
 
+    async initAceEditor(){
+        //// Create ACE
+        await new Promise((resolve) => {
+            this.setState({editor: window.ace.edit("firepad-container")}, resolve )
+        })
+
+        this.state.editor.setOptions({
+            fontFamily: "Fira Code",
+            theme: 'ace/theme/tomorrow_night',
+            indentedSoftWrap : false,
+        });
+
+        return 
+    }
+    async initSession(){
+        // Create Session
+        await new Promise((resolve) => {
+            this.setState({session: this.state.editor.getSession()}, resolve )
+        })
+        this.state.session.setUseWrapMode(true);
+        this.state.session.setUseWorker(false);
+        this.state.session.setMode("ace/mode/python");
+    }
+    async initFirepad(){
+        // Get Firebase Database reference.
+        var firepadRef = this.getRef(this.props.fileUrl);      
+
+        // Create Firepad.
+        await new Promise((resolve) => {
+            this.setState({firepad : window.Firepad.fromACE(firepadRef, this.state.editor, {
+                defaultText: '# Welcome to Ohana :)\n\ndef ohana() -> String:\n\tohanaMeaning = "family"\n\tfamilyMeaning = "nobody gets left behind or forgotten"\n\treturn "Ohana means" + ohanaMeaning + ". Family means" + familyMeaning + "."\n\n# To get started, choose a language and start typing!'
+            })}, 
+            resolve);
+        })
+    }
+
     getRef(fileUrl) {
         var ref = window.firebase.database().ref();
         if (fileUrl !== undefined) { // if a file url is specified, use that as ref
           ref = ref.child(fileUrl);
         } else { // The user has not yet been directed to a room, use a random firebase location   
             ref = ref.push(); // generate unique location.
+
             // window.location = window.location + '#' + ref.key; // add it as a hash to the URL.
         }
         if (typeof console !== 'undefined') {
