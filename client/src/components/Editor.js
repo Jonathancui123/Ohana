@@ -10,11 +10,11 @@ export default class Editor extends Component {
     constructor(props) {
         super(props)
 
-        this.state = {
-            session: null,
-            editor: undefined,
-            firepad: undefined
-        }
+        // this.state = {
+        //     session: z,
+        //     editor: undefined,
+        //     firepad: undefined
+        // }
         this.session = null
         this.editor = undefined
         this.firepad = undefined
@@ -63,15 +63,21 @@ export default class Editor extends Component {
     }
 
     
-    componentDidUpdate(){
-        this.session.setMode("ace/mode/" + this.props.mode);
+    componentDidUpdate(prevProps, prevState){
+        if (prevProps.mode !== this.props.mode){    // User has changed the mode
+            this.session.setMode("ace/mode/" + this.props.mode);
+        } 
+        if(prevProps.fileUrl !== this.props.fileUrl) {  // We have pushed a new fileUrl 
+            // Get the new Firebase Database reference.
+            var firepadRef = this.getRef(this.props.fileUrl);      
+            //// Create Firepad.
+            var firepad = window.Firepad.fromACE(firepadRef, this.editor, {
+                // defaultText: this.defaultText
+            });        
+        }
+        
 
-        // Get the new Firebase Database reference.
-        var firepadRef = this.getRef(this.props.fileUrl);      
-        //// Create Firepad.
-        var firepad = window.Firepad.fromACE(firepadRef, this.editor, {
-            // defaultText: this.defaultText
-        });        
+    
     }
 
     render() {        

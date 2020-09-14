@@ -1,7 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "Server for CodePals",
+  "description": "Server for Ohana",
   "main": "app.js",
   "scripts": {
     "test": "node server.js",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Jonathancui123/CodePals.git"
+    "url": "git+https://github.com/Jonathancui123/Ohana.git"
   },
   "author": "jinyi-li tony-zhao jonathan-cui",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Jonathancui123/CodePals/issues"
+    "url": "https://github.com/Jonathancui123/Ohana/issues"
   },
-  "homepage": "https://github.com/Jonathancui123/CodePals#readme",
+  "homepage": "https://github.com/Jonathancui123/Ohana#readme",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",

@@ -5,7 +5,7 @@ import fileUrlUtil from "./utils/fileUrl.js";
 import "./App.css";
 
 import config from "./config.js"
-const SERVER_URL = config.server_url;
+// const SERVER_URL = config.server_url;
 const CLIENT_URL = config.client_url;
 
 export default class App extends React.Component {
@@ -22,20 +22,16 @@ export default class App extends React.Component {
         this.setMode = this.setMode.bind(this);
         this.setFontSize = this.setFontSize.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.submit = this.submit.bind(this);
-        this.loadFile = this.loadFile.bind(this);
         this.copyClipboard = this.copyClipboard.bind(this);       
     }
 
     async componentDidMount(){
-        if (fileUrlUtil.getFileUrl() !== undefined){ // user has specified a file in the pathName
-            this.loadFile();
-        } else { // generate a new path for the user's new file
+        if (fileUrlUtil.getFileUrl() === undefined){ // generate a new URL for a new file
             let newPath = await fileUrlUtil.newFileUrl()
             console.log(`new file url is: ${newPath}`)
             this.setState({fileUrl: newPath})
             this.redirect(newPath)
-        }
+        }   //Firepad editor will try to load their document otherwise
     }
     redirect(path) {
         window.history.pushState(null, null, "/" + path);
@@ -49,22 +45,22 @@ export default class App extends React.Component {
         this.setState({ fontSize: event.target.value });
     }
 
-    loadFile() {
-        let fileurl = fileUrlUtil.getFileUrl();
-        fetch(SERVER_URL + fileurl, {
-            method: "GET",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
-                this.setState({
-                    value: data.data
-                });
-            });
-    }
+    // loadFile() {
+    //     let fileurl = fileUrlUtil.getFileUrl();
+    //     fetch(SERVER_URL + fileurl, {
+    //         method: "GET",
+    //         headers: {
+    //             "Accept": "application/json",
+    //             "Content-Type": "application/json"
+    //         }
+    //     })
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             this.setState({
+    //                 value: data.data
+    //             });
+    //         });
+    // }
 
     handleChange(event) {
         this.setState({
@@ -83,27 +79,27 @@ export default class App extends React.Component {
         }
     }
 
-    submit(event) {
-        if (this.state.changed && this.state.value !== "") {
-            fetch(SERVER_URL + "/upload", {
-                method: "POST",
-                headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    data: this.state.value
-                })
-            })
-                .then(response => response.json())
-                .then(responseJson => {
-                    this.setState({ changed: false, fileUrl: responseJson.id });
-                    this.redirect(responseJson.id);
-                })
-                .catch(err => console.log(err));
-            this.setState({ changed: false });
-        }
-    }
+    // submit(event) {
+    //     if (this.state.changed && this.state.value !== "") {
+    //         fetch(SERVER_URL + "/upload", {
+    //             method: "POST",
+    //             headers: {
+    //                 "Accept": "application/json",
+    //                 "Content-Type": "application/json"
+    //             },
+    //             body: JSON.stringify({
+    //                 data: this.state.value
+    //             })
+    //         })
+    //             .then(response => response.json())
+    //             .then(responseJson => {
+    //                 this.setState({ changed: false, fileUrl: responseJson.id });
+    //                 this.redirect(responseJson.id);
+    //             })
+    //             .catch(err => console.log(err));
+    //         this.setState({ changed: false });
+    //     }
+    // }
 
     render() {
         return (
