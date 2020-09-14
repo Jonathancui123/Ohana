@@ -1,4 +1,4 @@
-# Paste Pal
+# Ohana
 
 
 A simple to use pastebin with a modern interface and chrome integration.
