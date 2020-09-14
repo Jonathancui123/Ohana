@@ -6,3 +6,7 @@
 .ace_mobile-menu { 
     display: none !important 
 }
+
+a.powered-by-firepad {
+    display: none;
+}

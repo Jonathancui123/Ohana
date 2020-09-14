@@ -13,7 +13,7 @@ export default class App extends React.Component {
         this.state = {
             changed: false,
             mode: "text",
-            fontSize: "16px",
+            fontSize: "20px",
             id: "",
             value: ""
         };
