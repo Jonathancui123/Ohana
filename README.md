@@ -17,7 +17,7 @@ npm i
 cd ../client
 npm i 
 ```
-In development, create a file named ".env" that defines "DATABASE_URI" for the MongoDB connection
+In /server, create a file named ".env" that defines "DATABASE_URI" for the MongoDB connection
 
 To start the server for development on port 80, in /server:
 ```
