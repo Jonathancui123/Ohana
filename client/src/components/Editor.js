@@ -11,7 +11,7 @@ export default class Editor extends Component {
         super(props)
 
         this.state = {
-            session: undefined,
+            session: null,
             editor: undefined,
             firepad: undefined
         }
@@ -31,13 +31,17 @@ export default class Editor extends Component {
         };
         // Initialize Firebase
         window.firebase.initializeApp(firebaseConfig);
-
+        
         await this.initAceEditor();
         await this.initSession();
         await this.initFirepad();
+        
     }
 
     componentDidUpdate(){
+        console.log("Component did update")
+        console.log(`Props`)
+        console.log(this.props)
         this.state.session.setMode("ace/mode/" + this.props.mode);
     }
 
@@ -88,6 +92,7 @@ export default class Editor extends Component {
     }
 
     async initAceEditor(){
+        console.log("init ace editor")
         //// Create ACE
         await new Promise((resolve) => {
             this.setState({editor: window.ace.edit("firepad-container")}, resolve )
@@ -98,10 +103,11 @@ export default class Editor extends Component {
             theme: 'ace/theme/tomorrow_night',
             indentedSoftWrap : false,
         });
-
+        console.log(`Init Ace Editor Complete. typeof(this.state.editor): ${typeof(this.state.editor)}`)
         return 
     }
     async initSession(){
+        console.log("init session")
         // Create Session
         await new Promise((resolve) => {
             this.setState({session: this.state.editor.getSession()}, resolve )
@@ -109,8 +115,12 @@ export default class Editor extends Component {
         this.state.session.setUseWrapMode(true);
         this.state.session.setUseWorker(false);
         this.state.session.setMode("ace/mode/python");
+        console.log(`Init Session Complete. typeof(this.state.session): ${typeof(this.state.session)}`)
+        return
+
     }
     async initFirepad(){
+        console.log("init firepad")
         // Get Firebase Database reference.
         var firepadRef = this.getRef(this.props.fileUrl);      
 
@@ -121,6 +131,8 @@ export default class Editor extends Component {
             })}, 
             resolve);
         })
+        console.log(`Init Firepad Complete. typeof(this.state.firepad): ${typeof(this.state.firepad)}`)
+        return
     }
 
     getRef(fileUrl) {
