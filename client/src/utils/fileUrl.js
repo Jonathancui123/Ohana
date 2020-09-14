@@ -1,4 +1,4 @@
-import config from "./config.js"
+import config from "../config.js"
 const SERVER_URL = config.server_url;
 const CLIENT_URL = config.client_url;
 
@@ -9,21 +9,17 @@ class fileUrlUtil{
     }
     
     async newFileUrl(){
-        return fetch(SERVER_URL + "/newHash", {
+        const hashEndpoint = SERVER_URL + "/newHash"
+        fetch(hashEndpoint , {
             method: "GET",
             headers: {
-                Accept: "application/json",
+                "Accept": "application/json",
                 "Content-Type": "application/json"
             }
         })
-            .then(response => response.json())
-            .then(data => {
-                const { newFileUrl } = data
-                return newFileUrl
-            });
+            .then(response => response.text())
     }
-    
 }
 
 
-export default fileUrlUtil();
+export default new fileUrlUtil();

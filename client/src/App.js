@@ -23,16 +23,16 @@ export default class App extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.submit = this.submit.bind(this);
         this.loadFile = this.loadFile.bind(this);
-        this.updateURL = this.updateURL.bind(this);
         this.copyClipboard = this.copyClipboard.bind(this);       
     }
 
-    componentDidMount(){
+    async componentDidMount(){
         if (fileUrlUtil.getFileUrl() !== undefined){ // user has specified a file in the pathName
             this.loadFile();
         } else { // generate a new path for the user's new file
-            const newPath = fileUrlUtil.newFileUrl();    
-            this.updateURL(newPath);
+            console.log("Generating new url")
+            const newPath = await fileUrlUtil.newFileUrl();    
+            this.props.history.push(newPath);
         }
     }
 
@@ -49,7 +49,7 @@ export default class App extends React.Component {
         fetch(SERVER_URL + fileurl, {
             method: "GET",
             headers: {
-                Accept: "application/json",
+                "Accept": "application/json",
                 "Content-Type": "application/json"
             }
         })
@@ -68,9 +68,6 @@ export default class App extends React.Component {
         }); //TODO: handle submit asynchronously
     }
 
-    updateURL(id) {
-        window.history.pushState(null, null, "/" + id);
-    }
 
     copyClipboard() {
         console.log(`Copied: ${this.state.id}`);
@@ -86,7 +83,7 @@ export default class App extends React.Component {
             fetch(SERVER_URL + "/upload", {
                 method: "POST",
                 headers: {
-                    Accept: "application/json",
+                    "Accept": "application/json",
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
@@ -96,7 +93,7 @@ export default class App extends React.Component {
                 .then(response => response.json())
                 .then(responseJson => {
                     this.setState({ changed: false, id: responseJson.id });
-                    this.updateURL(responseJson.id);
+                    this.props.history.push(responseJson.id);
                 })
                 .catch(err => console.log(err));
             this.setState({ changed: false });
