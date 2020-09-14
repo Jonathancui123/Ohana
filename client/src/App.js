@@ -12,7 +12,7 @@ export default class App extends React.Component {
         super(props);
         this.state = {
             changed: false,
-            mode: "text",
+            mode: "python",
             fontSize: "20px",
             id: "",
             value: ""

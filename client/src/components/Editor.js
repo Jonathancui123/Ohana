@@ -41,11 +41,11 @@ export default class Editor extends Component {
         session.setUseWrapMode(true);
         session.setUseWorker(false);
         // session.setMode("ace/mode/" + this.props.mode);
-        session.setMode("ace/mode/text");
+        session.setMode("ace/mode/python");
 
         //// Create Firepad.
         var firepad = window.Firepad.fromACE(firepadRef, editor, {
-            defaultText: '// JavaScript Editing with Firepad!\nfunction go() {\n    var message = "Hello, world.";\n    console.log(message);\n}'
+            defaultText: '# Welcome to Ohana :)\n\ndef ohana() -> String:\n\tohanaMeaning = "family"\n\tfamilyMeaning = "nobody gets left behind or forgotten"\n\treturn "Ohana means" + ohanaMeaning + ". Family means" + familyMeaning + "."\n\n# To get started, choose a language and start typing!'
         });
 
         this.setState({
