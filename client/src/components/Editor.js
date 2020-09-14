@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import fileUrlUtil from '../utils/fileUrl';
 import AceEditor from 'react-ace';
 import "./editor.css"
 import "ace-builds/src-noconflict/theme-tomorrow_night";
@@ -10,11 +11,19 @@ export default class Editor extends Component {
         super(props)
 
         this.state = {
-            session: null
+            session: null,
+            editor: undefined,
+            firepad: undefined
         }
+        this.session = null
+        this.editor = undefined
+        this.firepad = undefined
+
+        this.defaultText = '# Welcome to Ohana :)\n\ndef ohana() -> String:\n\tohanaMeaning = "family"\n\tfamilyMeaning = "nobody gets left behind or forgotten"\n\treturn "Ohana means" + ohanaMeaning + ". Family means" + familyMeaning + "."\n\n# To get started, choose a language and start typing!'
     }
 
-    componentDidMount(){
+    async componentDidMount(){
+
         // Firebase configuration for real-time collaboration on firepad
         var firebaseConfig = {
             apiKey: "AIzaSyAceJM2eYvADgHBHtwCFl1EJjdQlGBzJFk",
@@ -27,9 +36,7 @@ export default class Editor extends Component {
         };
         // Initialize Firebase
         window.firebase.initializeApp(firebaseConfig);
-        //// Get Firebase Database reference.
-        var firepadRef = this.getRef();      
-
+        
         //// Create ACE
         var editor = window.ace.edit("firepad-container");
         editor.setOptions({
@@ -37,27 +44,37 @@ export default class Editor extends Component {
             theme: 'ace/theme/tomorrow_night',
             indentedSoftWrap : false,
         });
+        this.editor = editor
+
         var session = editor.getSession();
         session.setUseWrapMode(true);
         session.setUseWorker(false);
-        // session.setMode("ace/mode/" + this.props.mode);
         session.setMode("ace/mode/python");
+        this.session = session
+       
 
+        // Get Firebase Database reference.
+        var firepadRef = this.getRef(this.props.fileUrl);      
         //// Create Firepad.
-        var firepad = window.Firepad.fromACE(firepadRef, editor, {
-            defaultText: '# Welcome to Ohana :)\n\ndef ohana() -> String:\n\tohanaMeaning = "family"\n\tfamilyMeaning = "nobody gets left behind or forgotten"\n\treturn "Ohana means" + ohanaMeaning + ". Family means" + familyMeaning + "."\n\n# To get started, choose a language and start typing!'
-        });
-
-        this.setState({
-            session
-        });
+        var firepad = window.Firepad.fromACE(firepadRef, this.editor, {
+            defaultText: this.defaultText
+        });        
+        this.firepad = firepad
     }
 
-    componentDidUpdate() {
-        this.state.session.setMode("ace/mode/" + this.props.mode);
+    
+    componentDidUpdate(){
+        this.session.setMode("ace/mode/" + this.props.mode);
+
+        // Get the new Firebase Database reference.
+        var firepadRef = this.getRef(this.props.fileUrl);      
+        //// Create Firepad.
+        var firepad = window.Firepad.fromACE(firepadRef, this.editor, {
+            // defaultText: this.defaultText
+        });        
     }
 
-    render() {
+    render() {        
         return (
             <div 
             id="firepad-container"
@@ -99,14 +116,16 @@ export default class Editor extends Component {
         );
     }
 
-    getRef() {
+
+
+    getRef(fileUrl) {
         var ref = window.firebase.database().ref();
-        var hash = window.location.hash.replace(/#/g, '');
-        if (hash) {
-          ref = ref.child(hash);
-        } else {
-          ref = ref.push(); // generate unique location.
-          window.location = window.location + '#' + ref.key; // add it as a hash to the URL.
+        if (fileUrl !== undefined) { // if a file url is specified, use that as ref
+          ref = ref.child(fileUrl);
+        } else { // The user has not yet been directed to a room, use a random firebase location   
+            ref = ref.push(); // generate unique location.
+
+            // window.location = window.location + '#' + ref.key; // add it as a hash to the URL.
         }
         if (typeof console !== 'undefined') {
           console.log('Firebase data: ', ref.toString());

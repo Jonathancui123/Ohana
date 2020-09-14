@@ -1,6 +1,7 @@
 import React from "react";
 import TitleBar from "./components/TitleBar.js";
 import Editor from "./components/Editor.js";
+import fileUrlUtil from "./utils/fileUrl.js";
 import "./App.css";
 
 import config from "./config.js"
@@ -14,22 +15,32 @@ export default class App extends React.Component {
             changed: false,
             mode: "python",
             fontSize: "20px",
-            id: "",
-            value: ""
+            fileUrl: fileUrlUtil.getFileUrl(),
+            value: "",
+            redirect: undefined
         };
         this.setMode = this.setMode.bind(this);
         this.setFontSize = this.setFontSize.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.submit = this.submit.bind(this);
         this.loadFile = this.loadFile.bind(this);
-        this.updateURL = this.updateURL.bind(this);
-        this.copyClipboard = this.copyClipboard.bind(this);
-
-        console.log(SERVER_URL)
-        console.log(CLIENT_URL)
-
-        this.loadFile();
+        this.copyClipboard = this.copyClipboard.bind(this);       
     }
+
+    async componentDidMount(){
+        if (fileUrlUtil.getFileUrl() !== undefined){ // user has specified a file in the pathName
+            this.loadFile();
+        } else { // generate a new path for the user's new file
+            let newPath = await fileUrlUtil.newFileUrl()
+            console.log(`new file url is: ${newPath}`)
+            this.setState({fileUrl: newPath})
+            this.redirect(newPath)
+        }
+    }
+    redirect(path) {
+        window.history.pushState(null, null, "/" + path);
+    }
+
     setMode(event) {
         this.setState({ mode: event.target.value });
     }
@@ -39,12 +50,11 @@ export default class App extends React.Component {
     }
 
     loadFile() {
-        let fileurl = window.location.pathname;
-        //if (fileurl.length > 1) {
+        let fileurl = fileUrlUtil.getFileUrl();
         fetch(SERVER_URL + fileurl, {
             method: "GET",
             headers: {
-                Accept: "application/json",
+                "Accept": "application/json",
                 "Content-Type": "application/json"
             }
         })
@@ -54,7 +64,6 @@ export default class App extends React.Component {
                     value: data.data
                 });
             });
-        //}
     }
 
     handleChange(event) {
@@ -64,15 +73,12 @@ export default class App extends React.Component {
         }); //TODO: handle submit asynchronously
     }
 
-    updateURL(id) {
-        window.history.pushState(null, null, "/" + id);
-    }
 
     copyClipboard() {
-        console.log(`Copied: ${this.state.id}`);
-        if (this.state.id) {
+        console.log(`Copied: ${this.state.fileUrl}`);
+        if (this.state.fileUrl) {
             navigator.clipboard.writeText(
-                `http://${CLIENT_URL}/${this.state.id}`
+                `http://${CLIENT_URL}/${this.state.fileUrl}`
             );
         }
     }
@@ -82,7 +88,7 @@ export default class App extends React.Component {
             fetch(SERVER_URL + "/upload", {
                 method: "POST",
                 headers: {
-                    Accept: "application/json",
+                    "Accept": "application/json",
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
@@ -91,8 +97,8 @@ export default class App extends React.Component {
             })
                 .then(response => response.json())
                 .then(responseJson => {
-                    this.setState({ changed: false, id: responseJson.id });
-                    this.updateURL(responseJson.id);
+                    this.setState({ changed: false, fileUrl: responseJson.id });
+                    this.redirect(responseJson.id);
                 })
                 .catch(err => console.log(err));
             this.setState({ changed: false });
@@ -101,26 +107,27 @@ export default class App extends React.Component {
 
     render() {
         return (
-            <div className="container">
-                <TitleBar
-                    changed={this.state.changed}
-                    submit={this.submit}
-                    text={this.state.value}
-                    copyClipboard={this.copyClipboard}
-                    mode={this.state.mode}
-                    setMode={this.setMode}
-                    fontSize={this.state.fontSize}
-                    setFontSize={this.setFontSize}
-                />
-                <Editor
-                    placeholder={"Hi! Type to begin."}
-                    value={this.state.value}
-                    onChange={this.handleChange}
-                    submit={this.submit}
-                    mode={this.state.mode}
-                    fontSize={this.state.fontSize}
-                />
-            </div>
-        );
+        <div className="container">
+            <TitleBar
+                changed={this.state.changed}
+                submit={this.submit}
+                text={this.state.value}
+                copyClipboard={this.copyClipboard}
+                mode={this.state.mode}
+                setMode={this.setMode}
+                fontSize={this.state.fontSize}
+                setFontSize={this.setFontSize}
+            />
+            <Editor
+                placeholder={"Hi! Type to begin."}
+                value={this.state.value}
+                onChange={this.handleChange}
+                submit={this.submit}
+                mode={this.state.mode}
+                fontSize={this.state.fontSize}
+                fileUrl={this.state.fileUrl}
+            />
+        </div>
+    );
     }
 }
