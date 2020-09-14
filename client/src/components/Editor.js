@@ -29,8 +29,6 @@ export default class Editor extends Component {
         };
         // Initialize Firebase
         window.firebase.initializeApp(firebaseConfig);
-        //// Get Firebase Database reference.
-        var firepadRef = this.getRef(this.props.fileUrl);      
 
         //// Create ACE
         var editor = window.ace.edit("firepad-container");
@@ -45,11 +43,6 @@ export default class Editor extends Component {
         // session.setMode("ace/mode/" + this.props.mode);
         session.setMode("ace/mode/text");
 
-        //// Create Firepad.
-        var firepad = window.Firepad.fromACE(firepadRef, editor, {
-            defaultText: '// JavaScript Editing with Firepad!\nfunction go() {\n    var message = "Hello, world.";\n    console.log(message);\n}'
-        });
-
         this.setState({
             session
         });
@@ -60,6 +53,14 @@ export default class Editor extends Component {
     }
 
     render() {
+        // Get Firebase Database reference.
+        var firepadRef = this.getRef(this.props.fileUrl);      
+
+        // Create Firepad.
+        var firepad = window.Firepad.fromACE(firepadRef, editor, {
+            defaultText: '// JavaScript Editing with Firepad!\nfunction go() {\n    var message = "Hello, world.";\n    console.log(message);\n}'
+        });
+
         return (
             <div 
             id="firepad-container"
