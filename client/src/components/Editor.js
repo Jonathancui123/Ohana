@@ -116,49 +116,7 @@ export default class Editor extends Component {
         );
     }
 
-    async initAceEditor(){
-        console.log("init ace editor")
-        //// Create ACE
-        await new Promise((resolve) => {
-            this.setState({editor: window.ace.edit("firepad-container")}, resolve )
-        })
 
-        this.state.editor.setOptions({
-            fontFamily: "Fira Code",
-            theme: 'ace/theme/tomorrow_night',
-            indentedSoftWrap : false,
-        });
-        console.log(`Init Ace Editor Complete. typeof(this.state.editor): ${typeof(this.state.editor)}`)
-        return 
-    }
-    async initSession(){
-        console.log("init session")
-        // Create Session
-        await new Promise((resolve) => {
-            this.setState({session: this.state.editor.getSession()}, resolve )
-        })
-        this.state.session.setUseWrapMode(true);
-        this.state.session.setUseWorker(false);
-        this.state.session.setMode("ace/mode/python");
-        console.log(`Init Session Complete. typeof(this.state.session): ${typeof(this.state.session)}`)
-        return
-
-    }
-    async initFirepad(){
-        console.log("init firepad")
-        // Get Firebase Database reference.
-        var firepadRef = this.getRef(this.props.fileUrl);      
-
-        // Create Firepad.
-        await new Promise((resolve) => {
-            this.setState({firepad : window.Firepad.fromACE(firepadRef, this.state.editor, {
-                defaultText: '# Welcome to Ohana :)\n\ndef ohana() -> String:\n\tohanaMeaning = "family"\n\tfamilyMeaning = "nobody gets left behind or forgotten"\n\treturn "Ohana means" + ohanaMeaning + ". Family means" + familyMeaning + "."\n\n# To get started, choose a language and start typing!'
-            })}, 
-            resolve);
-        })
-        console.log(`Init Firepad Complete. typeof(this.state.firepad): ${typeof(this.state.firepad)}`)
-        return
-    }
 
     getRef(fileUrl) {
         var ref = window.firebase.database().ref();
