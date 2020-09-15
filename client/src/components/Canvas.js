@@ -29,7 +29,6 @@ class Canvas extends React.Component {
   }
 
   onMouseDown = ({ nativeEvent }) => {
-    console.log('MOUSE DOWN')
     const { offsetX, offsetY } = nativeEvent;
     this.setState({
       isPainting: true,
@@ -41,7 +40,6 @@ class Canvas extends React.Component {
   };
 
   onMouseMove = ({ nativeEvent }) => {
-    console.log('MOUSE MOVE')
     if (this.state.isPainting) {
       const { offsetX, offsetY } = nativeEvent;
       const offSet = { offsetX, offsetY };
@@ -79,7 +77,9 @@ class Canvas extends React.Component {
     this.ctx.moveTo(previousX, previousY);
     this.ctx.lineTo(offsetX, offsetY);
     this.ctx.stroke();
-    this.state.previousPosition = { offsetX, offsetY };
+    this.setState({
+      previousPosition: { offsetX, offsetY }
+    });
   }
 
   sendPaintData = async () => {
@@ -109,7 +109,6 @@ class Canvas extends React.Component {
     const channel = this.pusher.subscribe("painting");
     channel.bind("draw", data => {
       const { userId, line } = data;
-      console.log(line)
       if (userId !== this.userId) {
         line.forEach(position => {
           this.paint(position.start, position.stop, guestColour);
