@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import fileUrlUtil from '../utils/fileUrl';
-import AceEditor from 'react-ace';
+import config from "../config.js";
 import "./editor.css"
 import "ace-builds/src-noconflict/theme-tomorrow_night";
 import "../utils/modeImport";
@@ -8,13 +7,7 @@ import "../utils/modeImport";
 export default class Editor extends Component {
 
     constructor(props) {
-        super(props)
 
-        // this.state = {
-        //     session: z,
-        //     editor: undefined,
-        //     firepad: undefined
-        // }
         this.session = null
         this.editor = undefined
         this.firepad = undefined
@@ -25,15 +18,7 @@ export default class Editor extends Component {
     async componentDidMount(){
 
         // Firebase configuration for real-time collaboration on firepad
-        var firebaseConfig = {
-            apiKey: "AIzaSyAceJM2eYvADgHBHtwCFl1EJjdQlGBzJFk",
-            authDomain: "codepals-11647.firebaseapp.com",
-            databaseURL: "https://codepals-11647.firebaseio.com",
-            projectId: "codepals-11647",
-            storageBucket: "codepals-11647.appspot.com",
-            messagingSenderId: "434011141059",
-            appId: "1:434011141059:web:da6f150db2f7f67563c376"
-        };
+        var firebaseConfig = config.firebaseConfig
         // Initialize Firebase
         window.firebase.initializeApp(firebaseConfig);
         
