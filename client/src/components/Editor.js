@@ -7,6 +7,7 @@ import "../utils/modeImport";
 export default class Editor extends Component {
 
     constructor(props) {
+        super(props)
 
         this.session = null
         this.editor = undefined
@@ -18,7 +19,7 @@ export default class Editor extends Component {
     async componentDidMount(){
 
         // Firebase configuration for real-time collaboration on firepad
-        var firebaseConfig = config.firebaseConfig
+        var firebaseConfig = config.firebaseConfig;
         // Initialize Firebase
         window.firebase.initializeApp(firebaseConfig);
         
