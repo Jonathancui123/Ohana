@@ -1,8 +1,14 @@
 import React from "react";
-import TitleBar from "./components/TitleBar.js";
-import Editor from "./components/Editor.js";
-import Canvas from "./components/Canvas";
+import Main from './layouts/Main'
+import Landing from './layouts/Landing'
 import fileUrlUtil from "./utils/fileUrl.js";
+
+import { 
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link, useParams
+} from "react-router-dom";
 
 import "./App.css";
 
@@ -17,7 +23,7 @@ export default class App extends React.Component {
             changed: false,
             mode: "python",
             fontSize: "20px",
-            fileUrl: fileUrlUtil.getFileUrl(),
+            fileUrl: "",
             value: "",
             redirect: undefined
         };
@@ -27,14 +33,15 @@ export default class App extends React.Component {
         this.copyClipboard = this.copyClipboard.bind(this);
     }
 
-    async componentDidMount() {
-        if (fileUrlUtil.getFileUrl() === undefined) { // generate a new URL for a new file
-            let newPath = await fileUrlUtil.newFileUrl()
-            console.log(`new file url is: ${newPath}`)
-            this.setState({ fileUrl: newPath })
-            this.redirect(newPath)
-        }   //Firepad editor will try to load their document otherwise
-    }
+    // async componentDidMount() {
+    //     if (fileUrlUtil.getFileUrl() === undefined) { // generate a new URL for a new file
+    //         let newPath = await fileUrlUtil.newFileUrl()
+    //         console.log(`new file url is: ${newPath}`)
+    //         this.setState({ fileUrl: newPath })
+    //         this.redirect(newPath)
+    //     }   //Firepad editor will try to load their document otherwise
+    // }
+
     redirect(path) {
         window.history.pushState(null, null, "/" + path);
     }
@@ -47,22 +54,6 @@ export default class App extends React.Component {
         this.setState({ fontSize: event.target.value });
     }
 
-    // loadFile() {
-    //     let fileurl = fileUrlUtil.getFileUrl();
-    //     fetch(SERVER_URL + fileurl, {
-    //         method: "GET",
-    //         headers: {
-    //             "Accept": "application/json",
-    //             "Content-Type": "application/json"
-    //         }
-    //     })
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             this.setState({
-    //                 value: data.data
-    //             });
-    //         });
-    // }
 
     handleChange(event) {
         this.setState({
@@ -81,52 +72,18 @@ export default class App extends React.Component {
         }
     }
 
-    // submit(event) {
-    //     if (this.state.changed && this.state.value !== "") {
-    //         fetch(SERVER_URL + "/upload", {
-    //             method: "POST",
-    //             headers: {
-    //                 "Accept": "application/json",
-    //                 "Content-Type": "application/json"
-    //             },
-    //             body: JSON.stringify({
-    //                 data: this.state.value
-    //             })
-    //         })
-    //             .then(response => response.json())
-    //             .then(responseJson => {
-    //                 this.setState({ changed: false, fileUrl: responseJson.id });
-    //                 this.redirect(responseJson.id);
-    //             })
-    //             .catch(err => console.log(err));
-    //         this.setState({ changed: false });
-    //     }
-    // }
-
     render() {
         return (
-            <div className="container">
-                <TitleBar
-                    changed={this.state.changed}
-                    submit={this.submit}
-                    text={this.state.value}
-                    copyClipboard={this.copyClipboard}
-                    mode={this.state.mode}
-                    setMode={this.setMode}
-                    fontSize={this.state.fontSize}
-                    setFontSize={this.setFontSize}
-                />
-                <Editor
-                    placeholder={"Hi! Type to begin."}
-                    value={this.state.value}
-                    onChange={this.handleChange}
-                    submit={this.submit}
-                    mode={this.state.mode}
-                    fontSize={this.state.fontSize}
-                    fileUrl={this.state.fileUrl}
-                />
-                <Canvas />
-            </div>
+          <Router>
+            <Switch>
+              <Route path="/:id">
+                <Main />                
+              </Route>
+              <Route exact path="/">
+                <Landing />
+              </Route>
+            </Switch>
+          </Router>
         );
     }
 }
