@@ -16,7 +16,16 @@ npm i
 cd ../client
 npm i 
 ```
-In development, create a file named ".env" that defines "DATABASE_URI" for the MongoDB connection
+In development, create a file named ".env" in /client that defines the firebase configuration. They will be available upon creating a new firebase real-time-database. The following environment variables are needed in the .env file:
+
+REACT_APP_apiKey="",
+REACT_APP_authDomain="",
+REACT_APP_databaseURL="",
+REACT_APP_projectId="",
+REACT_APP_storageBucket="",
+REACT_APP_messagingSenderId="",
+REACT_APP_appId=""
+
 
 To start the server for development on port 80, in /server:
 ```
