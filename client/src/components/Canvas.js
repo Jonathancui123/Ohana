@@ -24,7 +24,7 @@ class Canvas extends React.Component {
     this.line = [];
     this.userId = v4();
     this.pusher = new Pusher(process.env.REACT_APP_pusherKey, {
-      cluster: "na2",
+      cluster: "us2",
     });
   }
 
