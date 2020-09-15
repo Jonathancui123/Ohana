@@ -1,7 +1,9 @@
 import React from "react";
 import TitleBar from "./components/TitleBar.js";
 import Editor from "./components/Editor.js";
+import Canvas from "./components/Canvas";
 import fileUrlUtil from "./utils/fileUrl.js";
+
 import "./App.css";
 
 import config from "./config.js"
@@ -22,14 +24,14 @@ export default class App extends React.Component {
         this.setMode = this.setMode.bind(this);
         this.setFontSize = this.setFontSize.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.copyClipboard = this.copyClipboard.bind(this);       
+        this.copyClipboard = this.copyClipboard.bind(this);
     }
 
-    async componentDidMount(){
-        if (fileUrlUtil.getFileUrl() === undefined){ // generate a new URL for a new file
+    async componentDidMount() {
+        if (fileUrlUtil.getFileUrl() === undefined) { // generate a new URL for a new file
             let newPath = await fileUrlUtil.newFileUrl()
             console.log(`new file url is: ${newPath}`)
-            this.setState({fileUrl: newPath})
+            this.setState({ fileUrl: newPath })
             this.redirect(newPath)
         }   //Firepad editor will try to load their document otherwise
     }
@@ -103,27 +105,28 @@ export default class App extends React.Component {
 
     render() {
         return (
-        <div className="container">
-            <TitleBar
-                changed={this.state.changed}
-                submit={this.submit}
-                text={this.state.value}
-                copyClipboard={this.copyClipboard}
-                mode={this.state.mode}
-                setMode={this.setMode}
-                fontSize={this.state.fontSize}
-                setFontSize={this.setFontSize}
-            />
-            <Editor
-                placeholder={"Hi! Type to begin."}
-                value={this.state.value}
-                onChange={this.handleChange}
-                submit={this.submit}
-                mode={this.state.mode}
-                fontSize={this.state.fontSize}
-                fileUrl={this.state.fileUrl}
-            />
-        </div>
-    );
+            <div className="container">
+                <TitleBar
+                    changed={this.state.changed}
+                    submit={this.submit}
+                    text={this.state.value}
+                    copyClipboard={this.copyClipboard}
+                    mode={this.state.mode}
+                    setMode={this.setMode}
+                    fontSize={this.state.fontSize}
+                    setFontSize={this.setFontSize}
+                />
+                <Editor
+                    placeholder={"Hi! Type to begin."}
+                    value={this.state.value}
+                    onChange={this.handleChange}
+                    submit={this.submit}
+                    mode={this.state.mode}
+                    fontSize={this.state.fontSize}
+                    fileUrl={this.state.fileUrl}
+                />
+                <Canvas />
+            </div>
+        );
     }
 }
