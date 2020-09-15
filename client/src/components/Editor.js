@@ -20,6 +20,7 @@ export default class Editor extends Component {
 
         // Firebase configuration for real-time collaboration on firepad
         var firebaseConfig = config.firebaseConfig;
+        console.log(firebaseConfig)
         // Initialize Firebase
         window.firebase.initializeApp(firebaseConfig);
         
