@@ -1,3 +1,32 @@
-.landing-page {
-    
-}
+.text-field {
+    width: 25%;
+    color: white;
+    border: none;
+    border-bottom: 1px solid tan;
+    background-color: transparent;
+    text-align: center;
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: 3em;
+  }
+
+  .text-field:focus {
+    outline: none;
+  }
+
+  .text-field:focus::placeholder {
+    color: transparent;
+  }
+
+  .createButton {
+    background-color: #0275d8;
+    border-color: #0275d8;
+    border-width: 2px;
+    font-size: 1.5em;
+    color: white;
+  }
+  
+  .createButton:hover {
+    background-color: lightskyblue;
+    color: white;
+  }
