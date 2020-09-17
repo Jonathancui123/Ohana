@@ -2,13 +2,8 @@ import React from "react";
 import TitleBar from "../components/TitleBar.js";
 import Editor from "../components/Editor.js";
 import Canvas from "../components/Canvas";
-import fileUrlUtil from "../utils/fileUrl.js";
 
-import { useParams, withRouter } from 'react-router-dom'
-
-import config from "../config.js"
-// const SERVER_URL = config.server_url;
-const CLIENT_URL = config.client_url;
+import { withRouter } from 'react-router-dom'
 
 class Main extends React.Component {
     constructor(props) {
@@ -63,7 +58,6 @@ class Main extends React.Component {
                     fontSize={this.state.fontSize}
                     fileUrl={this.state.fileUrl}
                 />
-                <Canvas />
             </div>
         );
     }
