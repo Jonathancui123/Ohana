@@ -1,7 +1,7 @@
 let config;
 
 if (process.env.NODE_ENV === "development") {
-    config =  {
+    config = {
         server_url: "http://localhost:5000",
         client_url: "http://localhost:3000",
         firebaseConfig: {
@@ -13,10 +13,10 @@ if (process.env.NODE_ENV === "development") {
             messagingSenderId: process.env.REACT_APP_messagingSenderId,
             appId: process.env.REACT_APP_appId
         }
-        
+
     }
 } else {
-    config =  {
+    config = {
         server_url: "https://ohana-fam-backend.herokuapp.com",
         client_url: "https://codepals-11647.web.app",
         firebaseConfig: {

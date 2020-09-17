@@ -4,8 +4,17 @@ if (process.env.NODE_ENV !== "production") {
 
 const express = require("express");
 const cors = require("cors");
+const Pusher = require("pusher");
 const mongoose = require("mongoose");
 const hash = require("./hash.js");
+
+const pusher = new Pusher({
+  appId: process.env.PUSHER_APP_ID,
+  key: process.env.PUSHER_KEY,
+  secret: process.env.PUSHER_SECRET,
+  cluster: "us2",
+  encrypted: true,
+});
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -17,6 +26,16 @@ const dbURI = (
 
 app.use(cors());
 app.use(express.json());
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept'
+  );
+  next();
+})
+app.listen(PORT, () => console.log(`Ohana server listening on port ${PORT}`));
+
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
   next();
@@ -34,10 +53,15 @@ mongoose
 
 app.get("/", (req, res) => {
   res.status(200);
-  res.send("Ohana means family")
+  res.send("Ohana means family");
 });
 
 app.get("/newHash", (req, res) => {
   let newHash = hash.hash58();
   res.send(newHash);
+});
+
+app.post("/draw", (req, res) => {
+  pusher.trigger("painting", "draw", req.body);
+  res.json(req.body);
 });
