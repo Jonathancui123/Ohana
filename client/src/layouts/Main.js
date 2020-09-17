@@ -58,6 +58,9 @@ class Main extends React.Component {
                     fontSize={this.state.fontSize}
                     fileUrl={this.state.fileUrl}
                 />
+                <Canvas
+                    roomId={this.state.fileUrl}
+                />
             </div>
         );
     }

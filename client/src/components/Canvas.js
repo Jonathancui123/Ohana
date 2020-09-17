@@ -86,6 +86,7 @@ class Canvas extends React.Component {
     const paintData = {
       line: this.line,
       userId: this.userId,
+      // roomId: this.props.roomId,
     };
 
     await fetch(drawEndpoint, {

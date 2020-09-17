@@ -6,7 +6,11 @@ const express = require("express");
 const cors = require("cors");
 const Pusher = require("pusher");
 const mongoose = require("mongoose");
+
 const hash = require("./hash.js");
+const {
+  createRoom,
+} = require('./utils')
 
 const pusher = new Pusher({
   appId: process.env.PUSHER_APP_ID,
@@ -24,6 +28,15 @@ const dbURI = (
     : "mongodb://localhost:27017/ohana"
 )
 
+mongoose
+  .connect(dbURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+  })
+  .then(() => console.log("Database connected"))
+  .catch(err => console.log(`Error connecting to database: ${err}`))
+
 app.use(cors());
 app.use(express.json());
 app.use((req, res, next) => {
@@ -34,22 +47,10 @@ app.use((req, res, next) => {
   );
   next();
 })
-app.listen(PORT, () => console.log(`Ohana server listening on port ${PORT}`));
-
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
   next();
 });
-app.listen(PORT, () => console.log(`Ohana server listening on port ${PORT}`));
-
-mongoose
-  .connect(dbURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-  })
-  .then(() => console.log("Database connected"))
-  .catch(err => console.log(`Error connecting to database: ${err}`))
 
 app.get("/", (req, res) => {
   res.status(200);
@@ -58,10 +59,15 @@ app.get("/", (req, res) => {
 
 app.get("/newHash", (req, res) => {
   let newHash = hash.hash58();
+  createRoom(newHash)
   res.send(newHash);
 });
 
 app.post("/draw", (req, res) => {
+  const { roomId } = req.body
+  console.log(req.body)
   pusher.trigger("painting", "draw", req.body);
   res.json(req.body);
 });
+
+app.listen(PORT, () => console.log(`Ohana server listening on port ${PORT}`));
