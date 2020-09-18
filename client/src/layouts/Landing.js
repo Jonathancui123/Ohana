@@ -7,9 +7,15 @@ class Landing extends React.Component {
     this.state = {
       url: '',
     };
-
+    this.handleKey = this.handleKey.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleKey(event) {
+    if (event.key === 'Enter') {
+      this.props.setRoom(this.state.url);
+    }
   }
 
   handleChange(event) {
@@ -26,33 +32,17 @@ class Landing extends React.Component {
     const { createRoom } = this.props;
     return (
       <div className="container">
-        <div className="row">
-          <div className="container-fluid align-items-center justify-content-center">
-            <div className="justify-content-center text-center mt-5">
-              <div>
-                <img className="img-fluid" style={{ maxHeight: '100px' }} src="./stitch.png" />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="row">
-          <div className="container-fluid align-items-center justify-content-center">
-            <div className="justify-content-center text-center">
-              <div>
-                <h2 className="display-2 text-primary mt-5 mb-5">Ohana</h2>
-                <button type="button" className="createButton" onClick={createRoom}>Create Room</button>
-              </div>
-              <div>
-                <form onSubmit={this.handleSubmit}>
-                  <div className="form-group">
-                    <input onChange={this.handleChange} value={url} type="text" className="text-field" placeholder="Enter Room Name" />
-                  </div>
-                  <button type="submit" className="createButton mt-5 mb-5">Join Room</button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
+        <img className="logo" src="./stitch.png" />
+        <h2 className="title">Ohana</h2>
+        <button type="button" className="create btn" onClick={createRoom}>Create a Room</button>
+        <input
+          onKeyPress={this.handleKey} 
+          onChange={this.handleChange} 
+          value={url} 
+          type="text" 
+          className="text-field" 
+          placeholder="Enter Room Code" />
+        <button onClick={this.handleSubmit} className="join btn">Join a Room</button>        
       </div>
     );
   }

@@ -1,32 +1,164 @@
-.text-field {
-    width: 25%;
-    color: white;
-    border: none;
-    border-bottom: 1px solid tan;
-    background-color: transparent;
-    text-align: center;
-    display: inline-block;
-    vertical-align: middle;
-    margin-top: 3em;
-  }
-
-  .text-field:focus {
-    outline: none;
-  }
-
-  .text-field:focus::placeholder {
-    color: transparent;
-  }
-
-  .createButton {
-    background-color: #0275d8;
-    border-color: #0275d8;
-    border-width: 2px;
-    font-size: 1.5em;
-    color: white;
-  }
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
   
-  .createButton:hover {
-    background-color: lightskyblue;
-    color: white;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+
+  max-width: 1140px;
+  height: 90vh;
+}
+
+.logo {
+  max-height: 200px;
+  margin-bottom: -1em;
+}
+
+.title {
+  color: var(--primary);
+  font-size: 5.5rem;
+  font-weight: 300;
+  line-height: 1.2;
+  margin-bottom: 3rem;
+  margin-top: 0;
+}
+
+.text-field {
+  width: 25%;
+  color: white;
+  border: none;
+  background-color: rgba(128, 128, 128, 0.5);
+  text-align: center;
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: 3em;
+  margin-bottom: 1rem;
+  border-radius: 1rem;
+  
+  font-family: 'Fira Code';
+  font-size: 1.1rem;
+  line-height: 2rem;
+}
+
+.text-field::placeholder {
+  font-family: Arial, Helvetica, sans-serif;
+  letter-spacing: 2px;
+  color: white;
+  text-transform: lowercase;
+}
+
+.text-field:focus {
+  outline: none;
+}
+
+.text-field:focus::placeholder {
+  color: transparent;
+}
+
+.btn {
+  background-color: transparent;
+  border-width: 2px;
+  border-radius: 1rem;
+  font-size: 1.5em;
+  text-transform: lowercase;
+  font-family: Arial, Helvetica, sans-serif;
+  border: 1px solid;
+  line-height: 1.5;
+  letter-spacing: 2px;
+  width: 25%;
+  transition: 
+    color 0.15s ease-in-out, 
+    background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, 
+    box-shadow 0.15s ease-in-out;
+  vertical-align: middle;
+  user-select: none;
+  padding: 0.375rem 0.75rem;
+}
+
+.btn:hover {
+  color: white;
+  border-color: var(--primary);
+}
+
+.btn:focus{
+  outline: none;
+}
+
+.create {
+  border-color: var(--secondary);
+  color: var(--secondary);
+}
+
+.join {
+  border-color: var(--tertiary);
+  color: var(--tertiary);
+}
+
+
+@media (max-width: 576px) {  
+  .container {
+    max-width: 100%;
   }
+  .btn {
+    width: 100%
+  }
+  .text-field {
+    width: 100%
+  }
+}
+
+@media (min-width: 576px) {  
+  .container {
+    max-width: 100%;
+  }
+  .btn {
+    width: 100%
+  }
+  .text-field {
+    width: 100%
+  }
+}
+ 
+/* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
+@media (min-width: 768px) {  
+  .container {
+    max-width: 540px;
+  }
+  .btn {
+    width: 100%
+  }
+  .text-field {
+    width: 100%
+  }
+}
+ 
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) { 
+  .container {
+    max-width: 720px;
+  }
+  .btn {
+    width: 50%
+  }
+  .text-field {
+    width: 50%
+  }
+}
+ 
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {  
+  .container {
+    max-width: 960px;
+  }
+  .btn {
+    width: 30%
+  }
+  .text-field {
+    width: 30%
+  }
+}
