@@ -26,8 +26,20 @@ async function updateCanvas(roomId, line) {
     return room
 }
 
+async function clearCanvas(roomId) {
+    const room = await Room.findOneAndUpdate({
+        roomId
+    }, {
+        $set: {
+            lines: []
+        }
+    })
+    return room
+}
+
 module.exports = {
     createRoom,
     getCanvas,
     updateCanvas,
+    clearCanvas,
 }

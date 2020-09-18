@@ -4,25 +4,22 @@ if (process.env.NODE_ENV !== "production") {
 
 const express = require("express");
 const cors = require("cors");
-const Pusher = require("pusher");
+const http = require('http')
+const socketio = require("socket.io");
 const mongoose = require("mongoose");
 
-const hash = require("./hash.js");
+const hash = require("./hash")
+const socket = require('./socket')
 const {
   createRoom,
   getCanvas,
   updateCanvas,
+  clearCanvas,
 } = require('./utils')
 
-const pusher = new Pusher({
-  appId: process.env.PUSHER_APP_ID,
-  key: process.env.PUSHER_KEY,
-  secret: process.env.PUSHER_SECRET,
-  cluster: "us2",
-  encrypted: true,
-});
-
-const app = express();
+const app = express()
+const server = http.createServer(app)
+const io = socketio(server)
 const PORT = process.env.PORT || 5000;
 const dbURI = (
   process.env.NODE_ENV === "production"
@@ -71,11 +68,6 @@ app.get("/draw/:roomId", async (req, res) => {
   res.send(lines)
 })
 
-app.post("/draw", (req, res) => {
-  const { roomId, line } = req.body
-  updateCanvas(roomId, line)
-  pusher.trigger(roomId, "draw", req.body);
-  res.json(req.body);
-});
+server.listen(PORT, () => console.log(`Ohana server listening on port ${PORT}`));
 
-app.listen(PORT, () => console.log(`Ohana server listening on port ${PORT}`));
+socket(io)
