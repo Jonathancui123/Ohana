@@ -10,6 +10,8 @@ const mongoose = require("mongoose");
 const hash = require("./hash.js");
 const {
   createRoom,
+  getCanvas,
+  updateCanvas,
 } = require('./utils')
 
 const pusher = new Pusher({
@@ -63,10 +65,16 @@ app.get("/newHash", (req, res) => {
   res.send(newHash);
 });
 
+app.get("/draw/:roomId", async (req, res) => {
+  const { roomId } = req.params
+  const lines = await getCanvas(roomId)
+  res.send(lines)
+})
+
 app.post("/draw", (req, res) => {
-  const { roomId } = req.body
-  console.log(req.body)
-  pusher.trigger("painting", "draw", req.body);
+  const { roomId, line } = req.body
+  updateCanvas(roomId, line)
+  pusher.trigger(roomId, "draw", req.body);
   res.json(req.body);
 });
 

@@ -21,11 +21,40 @@ class Canvas extends React.Component {
       },
     };
 
+    this.lines = [];
     this.line = [];
     this.userId = v4();
     this.pusher = new Pusher(process.env.REACT_APP_pusherKey, {
       cluster: "us2",
     });
+  }
+
+  async componentDidMount() {
+    this.canvas.width = 600;
+    this.canvas.height = 400;
+    this.ctx = this.canvas.getContext('2d');
+    this.ctx.lineJoin = 'round';
+    this.ctx.lineCap = 'round';
+    this.ctx.lineWidth = 5;
+
+    const canvasData = await fetch(`${drawEndpoint}/${this.props.roomId}`, {
+      method: 'GET',
+    })
+    const lines = await canvasData.json()
+    lines.forEach(position => {
+      this.paint(position.start, position.stop, guestColour);
+    })
+
+    const channel = this.pusher.subscribe(this.props.roomId);
+    channel.bind("draw", data => {
+      const { userId, line } = data;
+      console.log(line)
+      if (userId !== this.userId) {
+        line.forEach(position => {
+          this.paint(position.start, position.stop, guestColour);
+        })
+      }
+    })
   }
 
   onMouseDown = ({ nativeEvent }) => {
@@ -49,7 +78,7 @@ class Canvas extends React.Component {
         stop: { ...offSet },
       };
 
-      this.line = this.line.concat(position);
+      this.line.push(position);
       this.paint(
         this.state.previousPosition,
         offSet,
@@ -83,10 +112,12 @@ class Canvas extends React.Component {
   }
 
   sendPaintData = async () => {
+    this.lines.push(this.line)
+
     const paintData = {
       line: this.line,
       userId: this.userId,
-      // roomId: this.props.roomId,
+      roomId: this.props.roomId,
     };
 
     await fetch(drawEndpoint, {
@@ -96,26 +127,8 @@ class Canvas extends React.Component {
         "content-type": "application/json",
       },
     });
+
     this.line = [];
-  }
-
-  componentDidMount() {
-    this.canvas.width = 600;
-    this.canvas.height = 400;
-    this.ctx = this.canvas.getContext('2d');
-    this.ctx.lineJoin = 'round';
-    this.ctx.lineCap = 'round';
-    this.ctx.lineWidth = 5;
-
-    const channel = this.pusher.subscribe("painting");
-    channel.bind("draw", data => {
-      const { userId, line } = data;
-      if (userId !== this.userId) {
-        line.forEach(position => {
-          this.paint(position.start, position.stop, guestColour);
-        })
-      }
-    })
   }
 
   render() {
