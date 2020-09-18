@@ -1,0 +1,7 @@
+.main {
+  display: grid;
+}
+
+.tab-list {
+  margin-block-end: 0;
+}

@@ -17,14 +17,8 @@ export default class Editor extends Component {
     }
 
     async componentDidMount(){
-
-        // Firebase configuration for real-time collaboration on firepad
-        var firebaseConfig = config.firebaseConfig;
-        console.log(firebaseConfig)
-        // Initialize Firebase
-        window.firebase.initializeApp(firebaseConfig);
-        
         //// Create ACE
+        console.log('editor updated')
         var editor = window.ace.edit("firepad-container");
         editor.setOptions({
             fontFamily: "Fira Code",
@@ -64,7 +58,10 @@ export default class Editor extends Component {
             });        
         }
     }
-
+    componentWillUnmount() {
+        this.editor.destroy()
+        this.firepad.dispose()
+    }
     render() {        
         return (
             <div 
