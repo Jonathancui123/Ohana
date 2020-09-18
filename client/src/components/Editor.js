@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import config from "../config.js";
 import "./editor.css"
-import "ace-builds/src-noconflict/theme-tomorrow_night";
+import "ace-builds/src-noconflict/theme-nord_dark";
 import "../utils/modeImport";
 
 export default class Editor extends Component {
@@ -28,8 +28,9 @@ export default class Editor extends Component {
         var editor = window.ace.edit("firepad-container");
         editor.setOptions({
             fontFamily: "Fira Code",
-            theme: 'ace/theme/tomorrow_night',
+            theme: 'ace/theme/nord_dark',
             indentedSoftWrap : false,
+            showPrintMargin: false,
         });
         this.editor = editor
 
@@ -62,9 +63,6 @@ export default class Editor extends Component {
                 // defaultText: this.defaultText
             });        
         }
-        
-
-    
     }
 
     render() {        

@@ -38,7 +38,7 @@ class Main extends React.Component {
 
     render() {
         return (
-            <div className="container">
+            <div>
                 <TitleBar
                     changed={this.state.changed}
                     submit={this.submit}
@@ -49,6 +49,7 @@ class Main extends React.Component {
                     fontSize={this.state.fontSize}
                     setFontSize={this.setFontSize}
                 />
+
                 <Editor
                     placeholder={"Hi! Type to begin."}
                     value={this.state.value}

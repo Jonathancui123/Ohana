@@ -45,18 +45,18 @@ export default class App extends React.Component {
     render() {
         const { fileUrl } = this.state;
         return (
-          <Router>
-            <Switch>
-              <Route path="/:id">
-                <Main />                
-              </Route>
-              <Route exact path="/">
-                {fileUrl ? 
-                <Redirect to={`/${fileUrl}`} from='/' /> :
-                <Landing createRoom={this.createRoom} setRoom={this.setRoom} /> }
-              </Route>
-            </Switch>
-          </Router>
+            <Router>
+              <Switch>
+                <Route path="/:id">
+                  <Main />                
+                </Route>
+                <Route exact path="/">
+                  {fileUrl ? 
+                  <Redirect to={`/${fileUrl}`} from='/' /> :
+                  <Landing createRoom={this.createRoom} setRoom={this.setRoom} /> }
+                </Route>
+              </Switch>
+            </Router>
         );
     }
 }
