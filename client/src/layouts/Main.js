@@ -68,13 +68,13 @@ class Main extends React.Component {
         <Tabs className='main'>
           <TabList className='tab-list'>
             <Tab>
-              <img class="imageLogo" src={EditorLogo} />
+              <img className="imageLogo" src={EditorLogo} />
             </Tab>
             <Tab>
-              <img class="imageLogo" src={WhiteboardLogo} />
+              <img className="imageLogo" src={WhiteboardLogo} />
             </Tab>
             <Tab>
-              <img class="imageLogo" src={SettingsLogo} />
+              <img className="imageLogo" src={SettingsLogo} />
             </Tab>
           </TabList>
           <TabPanel>

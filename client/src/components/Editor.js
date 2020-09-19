@@ -13,7 +13,7 @@ export default class Editor extends Component {
         this.editor = undefined
         this.firepad = undefined
 
-        this.defaultText = '# Welcome to Ohana :)\n\ndef ohana() -> String:\n\tohanaMeaning = "family"\n\tfamilyMeaning = "nobody gets left behind or forgotten"\n\treturn "Ohana means" + ohanaMeaning + ". Family means" + familyMeaning + "."\n\n# To get started, choose a language and start typing!'
+        this.defaultText = '# Welcome to Ohana :)\n\ndef ohana() -> String:\n\tohanaMeaning = "family"\n\tfamilyMeaning = "nobody gets left behind or forgotten"\n\treturn "Ohana means " + ohanaMeaning + ". Family means " + familyMeaning + "."\n\n# To get started, choose a language and start typing!'
     }
 
     async componentDidMount(){
@@ -54,16 +54,14 @@ export default class Editor extends Component {
             var firepadRef = this.getRef(this.props.fileUrl);      
             //// Create Firepad.
             var firepad = window.Firepad.fromACE(firepadRef, this.editor, {
-                // defaultText: this.defaultText
+                defaultText: this.defaultText
             });        
         }
     }
     componentWillUnmount() {
         this.editor.destroy()
 
-        if (this.firepad) {
-            this.firepad.dispose()
-        }
+        this.firepad.dispose()
     }
     render() {        
         return (
