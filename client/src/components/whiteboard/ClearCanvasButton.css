@@ -1,4 +1,15 @@
 .clearCanvasButton {
+    background: none;
     display: inline-block;
-    border: 1px solid white;
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+.clearButton {
+    /* outline: 5px dotted blue; */
+    max-width: 50px;
+    max-height: 50px;
+    border: none;
+    outline: none;
 }

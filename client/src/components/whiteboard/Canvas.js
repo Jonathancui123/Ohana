@@ -11,8 +11,8 @@ const CLEAR_ENDPOINT = `${SERVER_URL}/clearCanvas`
 const LINE_JOIN = 'round'
 const LINE_CAP = 'round'
 const LINE_WIDTH = 5
-const CANVAS_WIDTH = 800
-const CANVAS_HEIGHT = 600
+const CANVAS_WIDTH = 1000
+const CANVAS_HEIGHT = 800
 const DEFAULT_COLOR = '#FFFFFF'
 
 class Canvas extends React.Component {
@@ -41,6 +41,7 @@ class Canvas extends React.Component {
 	}
 
 	async componentDidMount() {
+		console.log("called")
 		this.canvas.width = CANVAS_WIDTH
 		this.canvas.height = CANVAS_HEIGHT
 		this.ctx = this.canvas.getContext('2d')
@@ -151,19 +152,24 @@ class Canvas extends React.Component {
 	render() {
 		return (
 			<>
+				<ColorPicker
+					selectedColor={this.state.lineColor}
+					setColor={this.setColor}
+					style={{display: "block"}}
+				/>
+				<ClearCanvasButton clearCanvas={this.clearCanvas} />
 				<canvas
 					ref={ref => { this.canvas = ref }}
-					style={{ background: "#3f4758" }}
+					style={{ 
+							display: "block",
+							background: "#3f4758" 
+					}}
 					onMouseDown={this.onMouseDown}
 					onMouseLeave={this.endPaintEvent}
 					onMouseUp={this.endPaintEvent}
 					onMouseMove={this.onMouseMove}
 				/>
-				<ColorPicker
-					selectedColor={this.state.lineColor}
-					setColor={this.setColor}
-				/>
-				<ClearCanvasButton clearCanvas={this.clearCanvas} />
+				
 			</>
 		)
 	}
