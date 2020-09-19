@@ -153,7 +153,7 @@ class Canvas extends React.Component {
 			<>
 				<canvas
 					ref={ref => { this.canvas = ref }}
-					style={{ background: 'black' }}
+					style={{ background: "#3f4758" }}
 					onMouseDown={this.onMouseDown}
 					onMouseLeave={this.endPaintEvent}
 					onMouseUp={this.endPaintEvent}

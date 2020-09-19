@@ -4,10 +4,11 @@ import ColorButton from './ColorButton'
 
 const colors = [
     '#FFFFFF',
-    '#FF0000',
-    '#00FF00',
+    '#ac83ad',
+    '#51d4fe',
     '#0000FF',
     '#00FFFF',
+    '#000000',
 ]
 
 class ColorPicker extends React.Component {
