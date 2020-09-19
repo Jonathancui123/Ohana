@@ -34,7 +34,7 @@ class Landing extends React.Component {
       <div className="container">
         <img className="logo" src="./stitch.png" />
         <h2 className="title">Ohana</h2>
-        <button type="button" className="create btn" onClick={createRoom}>Create a Room</button>
+        <button type="button" className="create btn" onClick={createRoom}>New Room</button>
         <input
           onKeyPress={this.handleKey} 
           onChange={this.handleChange} 
@@ -42,7 +42,7 @@ class Landing extends React.Component {
           type="text" 
           className="text-field" 
           placeholder="Enter Room Code" />
-        <button onClick={this.handleSubmit} className="join btn">Join a Room</button>        
+        <button onClick={this.handleSubmit} className="join btn">Join Room</button>        
       </div>
     );
   }
