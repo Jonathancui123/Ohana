@@ -6,12 +6,10 @@ import Editor from "../components/Editor.js";
 import Canvas from "../components/whiteboard/Canvas";
 import config from '../config'
 
-import { withRouter } from 'react-router-dom'
 import { Tabs, Tab, TabList, TabPanel } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css';
 
 import './main.css';
-import config from "../config.js";
 import Modal from "../components/Modal.js";
 
 import EditorLogo from "./editor.png"

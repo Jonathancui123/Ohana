@@ -51,15 +51,6 @@ app.use((req, res, next) => {
   next();
 });
 
-mongoose
-  .connect(dbURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-  })
-  .then(() => console.log("Database connected"))
-  .catch(err => console.log(`Error connecting to database: ${err}`))
-
 app.get("/", (req, res) => {
   res.status(200);
   res.send("Ohana means family");
