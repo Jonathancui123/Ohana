@@ -1,7 +1,10 @@
 import React from "react";
+import { withRouter } from 'react-router-dom'
+
 import TitleBar from "../components/TitleBar.js";
 import Editor from "../components/Editor.js";
-import Canvas from "../components/Canvas";
+import Canvas from "../components/whiteboard/Canvas";
+import config from '../config'
 
 import { withRouter } from 'react-router-dom'
 import { Tabs, Tab, TabList, TabPanel } from 'react-tabs'
@@ -15,6 +18,7 @@ import EditorLogo from "./editor.png"
 import WhiteboardLogo from "./whiteboard.png"
 import SettingsLogo from "./settings.png"
 
+const { server_url: SERVER_URL } = config
 
 class Main extends React.Component {
   constructor(props) {
@@ -87,7 +91,9 @@ class Main extends React.Component {
           />          
           </TabPanel>
           <TabPanel>
-          <Canvas />
+          <Canvas
+                    roomId={this.state.fileUrl}
+                />
           </TabPanel>
           <TabPanel>
             <Modal showModal={true}/>

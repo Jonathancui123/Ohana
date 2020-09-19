@@ -4,25 +4,37 @@ if (process.env.NODE_ENV !== "production") {
 
 const express = require("express");
 const cors = require("cors");
-const Pusher = require("pusher");
+const http = require('http')
+const socketio = require("socket.io");
 const mongoose = require("mongoose");
-const hash = require("./hash.js");
 
-const pusher = new Pusher({
-  appId: process.env.PUSHER_APP_ID,
-  key: process.env.PUSHER_KEY,
-  secret: process.env.PUSHER_SECRET,
-  cluster: "us2",
-  encrypted: true,
-});
+const hash = require("./hash")
+const socket = require('./socket')
+const {
+  createRoom,
+  getCanvas,
+  updateCanvas,
+  clearCanvas,
+} = require('./utils')
 
-const app = express();
+const app = express()
+const server = http.createServer(app)
+const io = socketio(server)
 const PORT = process.env.PORT || 5000;
 const dbURI = (
   process.env.NODE_ENV === "production"
     ? process.env.DATABASE_URI
     : "mongodb://localhost:27017/ohana"
 )
+
+mongoose
+  .connect(dbURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+  })
+  .then(() => console.log("Database connected"))
+  .catch(err => console.log(`Error connecting to database: ${err}`))
 
 app.use(cors());
 app.use(express.json());
@@ -34,8 +46,6 @@ app.use((req, res, next) => {
   );
   next();
 })
-app.listen(PORT, () => console.log(`Ohana server listening on port ${PORT}`));
-
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
   next();
@@ -57,10 +67,16 @@ app.get("/", (req, res) => {
 
 app.get("/newHash", (req, res) => {
   let newHash = hash.hash58();
+  createRoom(newHash)
   res.send(newHash);
 });
 
-app.post("/draw", (req, res) => {
-  pusher.trigger("painting", "draw", req.body);
-  res.json(req.body);
-});
+app.get("/draw/:roomId", async (req, res) => {
+  const { roomId } = req.params
+  const lines = await getCanvas(roomId)
+  res.send(lines)
+})
+
+server.listen(PORT, () => console.log(`Ohana server listening on port ${PORT}`));
+
+socket(io)
