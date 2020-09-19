@@ -11,6 +11,11 @@ import './main.css';
 import config from "../config.js";
 import Modal from "../components/Modal.js";
 
+import EditorLogo from "./editor.png"
+import WhiteboardLogo from "./whiteboard.png"
+import SettingsLogo from "./settings.png"
+
+
 class Main extends React.Component {
   constructor(props) {
     super(props);
@@ -61,13 +66,13 @@ class Main extends React.Component {
         <Tabs className='main'>
           <TabList className='tab-list'>
             <Tab>
-              editor
+              <img class="imageLogo" src={EditorLogo} />
             </Tab>
             <Tab>
-              whiteboard
+              <img class="imageLogo" src={WhiteboardLogo} />
             </Tab>
             <Tab>
-              settings
+              <img class="imageLogo" src={SettingsLogo} />
             </Tab>
           </TabList>
           <TabPanel>

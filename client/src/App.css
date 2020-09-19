@@ -3,9 +3,9 @@
 :root {
   --bg: #1d1f21;
   --text-color:white;
-  --primary: #257CE1;
-  --secondary: #B386B8;
-  --tertiary: #66CFEB;
+  --primary: #497ab4;
+  --secondary: #ac83ad;
+  --tertiary: #80d2ec;
 }
 
 
@@ -14,6 +14,6 @@ textarea{
 }
 
 body {
-  background-color: #020C13;
+  background-color: #2e3440;
   color: #ECF1FD;
 }

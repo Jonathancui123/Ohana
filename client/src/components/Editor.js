@@ -60,7 +60,10 @@ export default class Editor extends Component {
     }
     componentWillUnmount() {
         this.editor.destroy()
-        this.firepad.dispose()
+
+        if (this.firepad) {
+            this.firepad.dispose()
+        }
     }
     render() {        
         return (
