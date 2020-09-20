@@ -1,29 +1,32 @@
 div.title-bar {
     justify-content: space-between;
     display: flex;
+    margin-bottom: -12px;
+
   }
   #title {
     padding-left: 1em;
     display: inline-block;
     user-select: none;
+    padding-bottom: -10px;
+
   }
   #title img {
     display: inline-block;
-    vertical-align: text-bottom;
     width: 50px;
     margin-left: 10px;
-    margin-right: 10px;
+    margin-right: 30px;
+    margin-bottom: -8px;
+
   }
   #title h1 {
     display: inline-block;
     font-weight: 300;
+
   }
   .icons {
-    display: inline-block;
-    vertical-align: text-bottom;
-    justify-content: right;
-    margin-left: 75rem;
-    margin-right: 10px;
+    margin-top: 28px;
+    margin-right: 20px;
     max-width: 30px;
     max-height: 30px;
   }

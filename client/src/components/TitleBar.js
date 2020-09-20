@@ -37,8 +37,8 @@ export default class TitleBar extends React.Component {
                 <div id = "title">
                     <img className="logo" src={logos[Math.floor(Math.random() * 6) + 1]} alt=""/>
                     <h1>Ohana</h1>
-                    <input type="image" className="icons" src={SettingsLogo} onClick={this.showModal}/>
                 </div>
+                <input type="image" className="icons" src={SettingsLogo} onClick={this.showModal}/>
                 <Modal 
                     onClose={this.showModal}
                     show={this.state.show}
