@@ -10,11 +10,9 @@ import { Tabs, Tab, TabList, TabPanel } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css';
 
 import './main.css';
-import Modal from "../components/Modal.js";
 
 import EditorLogo from "./editor.png"
 import WhiteboardLogo from "./whiteboard.png"
-import SettingsLogo from "./settings.png"
 
 const { server_url: SERVER_URL } = config
 
@@ -55,16 +53,15 @@ class Main extends React.Component {
   render() {
     return (
       <div>
-        {/* <TitleBar
+        <TitleBar
           changed={this.state.changed}
           submit={this.submit}
           text={this.state.value}
-          copyClipboard={this.copyClipboard}
           mode={this.state.mode}
           setMode={this.setMode}
           fontSize={this.state.fontSize}
           setFontSize={this.setFontSize}
-        /> */}
+        />
         <Tabs className='main'>
           <TabList className='tab-list'>
             <Tab>
@@ -72,9 +69,6 @@ class Main extends React.Component {
             </Tab>
             <Tab>
               <img className="imageLogo" src={WhiteboardLogo} />
-            </Tab>
-            <Tab>
-              <img className="imageLogo" src={SettingsLogo} />
             </Tab>
           </TabList>
           <TabPanel>
@@ -90,11 +84,8 @@ class Main extends React.Component {
           </TabPanel>
           <TabPanel>
           <Canvas
-                    roomId={this.state.fileUrl}
-                />
-          </TabPanel>
-          <TabPanel>
-            <Modal showModal={true}/>
+            roomId={this.state.fileUrl}
+          />
           </TabPanel>
         </Tabs>
           

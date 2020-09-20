@@ -2,12 +2,14 @@ import React from "react";
 import "./modal.css";
 
 export default class Modal extends React.Component {
+
     render() {
-        if (!this.props.showModal) {
+
+        if (!this.props.show) {
             return null;
         } else {
             return (
-                <div className="modal">
+                <div className={"modal"}>
                     <div className="modal-content">
                         <b>Settings</b>
                         <div>
@@ -65,7 +67,7 @@ export default class Modal extends React.Component {
                         </div>
                         <button
                             className="close"
-                            onClick={this.props.closeModal}
+                            onClick={this.props.onClose}
                         >
                             Close
                         </button>

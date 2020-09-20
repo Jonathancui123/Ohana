@@ -68,7 +68,7 @@ export default class Editor extends Component {
             <div 
             id="firepad-container"
             style={{
-                "height": '80vh',
+                "height": '76vh',
                 "margin": '0 20px 0 20px',
                 fontSize: this.props.fontSize,
             }}
