@@ -1,12 +1,12 @@
 # Ohana
 
-No programmer left behind! Simple real-time collaboration for code in any language of your choice. 
+No programmer left behind! Simple real-time collaboration for whiteboarding and code editing in any language of your choice. Practice coding with friends with the visual aid of a whiteboard.
+
+View it live at [itsohana.com](https://itsohana.com).
 
 ## About
 
 Built with React and Node.js  
-
-View it live at [pastepal.ca](https://pastepal.ca).
 
 ## Setup
 First, clone the repo. Then install dependencies:
