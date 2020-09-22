@@ -1,12 +1,22 @@
 # Ohana
 
-No programmer left behind! Simple real-time collaboration for whiteboarding and code editing in any language of your choice. Practice coding with friends with the visual aid of a whiteboard.
+### View it live at [itsohana.com](https://itsohana.com).
 
-View it live at [itsohana.com](https://itsohana.com).
+
+No programmer left behind! Simple real-time collaboration for whiteboarding and code editing in any language of your choice. Practice coding with friends with the visual aid of a whiteboard.
 
 ## About
 
-Built with React and Node.js  
+Built with React on the frontend, Node.js + Express to manage rooms and client connections, and MongoDB to store whiteboard drawings. 
+
+Leveraged Pusher.js and Firebase RTDB for real-time synchronization, supporting 100+ concurrent users. 
+
+## Challenges
+- We learned about Conflict-free replicated data types (CRDTs) and Operational Transform to achieve simultaneous text editing for multiple users
+
+- We had to find a balance between the performance of real-time changes and the reliability of having them persisted to our database
+
+- Integrating with DOM manipulation plugins in React
 
 ## Setup
 First, clone the repo. Then install dependencies:
@@ -26,6 +36,7 @@ REACT_APP_storageBucket="",
 REACT_APP_messagingSenderId="",
 REACT_APP_appId=""
 
+Similarly, a file named ".env" will also be needed in /server to define the mongoDB configuration. The environment variable is "MONGO_URI" 
 
 To start the server for development on port 80, in /server:
 ```
@@ -41,8 +52,6 @@ The app is available on http://localhost:3000
 
 
 ## Things we've learned
+- Intricacies of real-time synchronization and how to use web socket libraries
 
-
-- React cannot render onto textarea  
-- MongoDB documentation  
-- Explored methods for saving and retrieving files
+- Operational transform, and how it resolves concurrent edits to the same body of text
