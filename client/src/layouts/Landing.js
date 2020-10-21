@@ -1,11 +1,14 @@
 import React from 'react';
 import './landing.css';
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
+import Loader from 'react-loader-spinner'
 
 class Landing extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       url: '',
+      loading: false
     };
     this.handleKey = this.handleKey.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -27,6 +30,10 @@ class Landing extends React.Component {
     event.preventDefault();
   }
 
+  startLoading() {
+    this.setState({ loading: true });
+  }
+
   render() {
     const { url } = this.state;
     const { createRoom } = this.props;
@@ -34,7 +41,25 @@ class Landing extends React.Component {
       <div className="container">
         <img className="logo" src="./stitch.png" />
         <h2 className="title">Ohana</h2>
-        <button type="button" className="create btn" onClick={createRoom}>New Room</button>
+        <button type="button" className="create btn" onClick={() => {
+          this.startLoading();
+          createRoom();
+        }}>New Room</button>
+       
+        {this.state.loading && 
+          <h2 >Getting Lilo to start the server...</h2>
+        }
+
+        {this.state.loading && 
+        <Loader
+         type="Bars"
+         color="#497ab4"
+         height={50}
+         width={50}
+        //  timeout={3000} //3 secs
+      />}
+
+
         <input
           onKeyPress={this.handleKey} 
           onChange={this.handleChange} 
